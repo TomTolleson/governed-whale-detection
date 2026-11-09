@@ -127,7 +127,7 @@ data quality "Good", "small data gaps between files" from 2019-01-26 onward.
 
 Folder: `products/detections/sb02/sanctsound_sb02_01_humpbackwhale_1d/`
 
-- `data/SanctSound_SB02_01_humpbackwhale_1d.csv` (933 B) + `.nc` (same data, NetCDF)
+- `data/SanctSound_SB02_01_humpbackwhale_1d.csv` (1,115 B) + a `.nc` NetCDF file (not opened)
 - Columns: **`ISOStartTime`** (date, `YYYY-MM-DD`), **`Presence`** (0/1)
 - Date range: **2018-11-12 → 2019-01-28**, 78 rows (one per day, matches the deployment dates)
 - Presence: **68 / 78 days = 87.2 %** present, 10 absent
