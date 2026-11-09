@@ -115,7 +115,7 @@ training or evaluation, and the "0" labels are probably "no data" rather than tr
   `_Pre-Retrieval_Post-clip`. Deployments 04+ use `..._YYMMDDHHMMSS.flac`, **assumed to be UTC**
   (the name has no zone marker).
 - Each file is assumed to run until the next file starts, capped at the deployment's normal file length
-  (median start-to-start interval: ~6 h for 01–03, ~4 h for 04+). The one file whose real length was
+  (median start-to-start interval: 6 h for deployments 01–02, 4 h from 03 onward). The one file whose real length was
   read earlier (sb02_01 first file, 18,429 s) ends exactly when the next file starts, which supports this.
 - The last file of each deployment has no successor, so its length is estimated from its size divided by the
   deployment's median bytes per second, capped at the normal length. FLAC compression varies, so this is
