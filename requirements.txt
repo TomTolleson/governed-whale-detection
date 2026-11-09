@@ -1,0 +1,5 @@
+gcsfs==2026.10.1
+pandas==2.3.3
+numpy==2.2.6
+soundfile==0.14.0
+pytest==9.2.0
