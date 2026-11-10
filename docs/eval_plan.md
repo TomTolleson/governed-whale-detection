@@ -102,3 +102,8 @@ Every baseline is evaluated on the same days and with the same metrics as the mo
   show how they transfer, not that scores are calibrated at sb03.
 - 12 deployments have fewer than 5 absent eligible days (`docs/eligible_summary.md`), so
   per-deployment metrics will be n/a for most of them.
+- *Amendment 1 (2026-11-10, owner instruction; reason: the model card lists SanctSound, doi
+  10.25921/saca-sp25, and an NEFSC Stellwagen Bank dataset, doi 10.25921/g3vk-v972, among its training data, with
+  sites and dates not stated; see `docs/model_notes.md`):*
+  Our test days may overlap the pretrained model's training data; results are an audit of a pretrained model,
+  not evidence of generalization to unseen data.

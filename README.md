@@ -8,6 +8,10 @@ analyst-screened daily humpback labels.
 **Research use only.** Outputs are experimental and must not be used for operational,
 management, permitting or regulatory decisions.
 
+**Non-commercial research.** This project is non-commercial research. It uses Google's multispecies
+whale model (Kaggle `google/multispecies-whale`, Apache 2.0), whose Terms of Use ask that it be used for
+wildlife conservation, research or education, not for profit (`docs/model_notes.md`).
+
 ## Data
 
 - Audio and labels: public GCS bucket `gs://noaa-passive-bioacoustic/sanctsound/`, read anonymously.
