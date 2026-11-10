@@ -4,6 +4,8 @@
 
 Inputs (offline): data/labels/*.csv and data/audio_listing.json from
 `python -m src.label_survey fetch`. Rules are in docs/labeling_rules.md.
+Audio-derived columns (zero_fraction, zero_flag) come from processed days in data/scores/v2
+(`src/pilot.py`); days not processed (including every test day) get NaN / False.
 """
 
 import argparse
@@ -24,6 +26,8 @@ MIN_ELIGIBLE_HOURS = 20.0
 FULL_DAY_HOURS = 24.0 - 1 / 60  # a day missing less than 1 minute counts as full
 MIN_ABSENT = 5                  # flag deployments with fewer absent eligible days
 NEAR_THRESHOLD_H = 1.0          # report days within this many hours of the 20 h cut
+SCORES_DIR = ROOT / "data" / "scores" / "v2"
+ZERO_FLAG = 0.01                # eval plan section 7: flag days with > 1% exact-zero input samples
 COLUMNS = ["site", "deployment", "date", "label", "audio_hours", "is_partial_day",
            "no_audio", "is_changeover_day", "eligible"]
 
@@ -46,6 +50,22 @@ def build_day_table(labels: dict, listing: dict) -> pd.DataFrame:
     # Rule from the brief: eligible only if audio_hours >= 20 and not no_audio.
     t["eligible"] = (t["audio_hours"] >= MIN_ELIGIBLE_HOURS) & ~t["no_audio"]
     return t[COLUMNS]
+
+
+def attach_zero_fraction(t: pd.DataFrame, scores_dir=SCORES_DIR) -> pd.DataFrame:
+    """Add zero_fraction (share of exact-zero 48 kHz input samples) and zero_flag from processed days."""
+    import numpy as np
+
+    zf = {}
+    for path in sorted(scores_dir.glob("*.npz")) if scores_dir.exists() else []:
+        with np.load(path) as z:
+            if "zero_fraction" in z.files:
+                zf[path.stem] = float(z["zero_fraction"])
+    t = t.copy()
+    keys = t["site"] + "_" + t["deployment"] + "_" + t["date"]
+    t["zero_fraction"] = keys.map(zf).astype(float)
+    t["zero_flag"] = t["zero_fraction"] > ZERO_FLAG
+    return t
 
 
 def exclusion_reason(row) -> str | None:
@@ -137,7 +157,7 @@ last files were not checked.
 
 def main(actor: str):
     labels, listing = load_inputs()
-    t = build_day_table(labels, listing)
+    t = attach_zero_fraction(build_day_table(labels, listing))
     t.to_csv(DAY_TABLE, index=False)
     reasons = Counter(r for r in t.apply(exclusion_reason, axis=1) if r)
     log_event(actor, "write_day_table", {
@@ -146,6 +166,8 @@ def main(actor: str):
         "eligible": int(t["eligible"].sum()),
         "excluded_by_reason": dict(reasons),
         "excluded_total": sum(reasons.values()),
+        "zero_fraction_days": int(t["zero_fraction"].notna().sum()),
+        "zero_flag_days": int(t["zero_flag"].sum()),
         "info": {"changeover_rows": int(t["is_changeover_day"].sum()),
                  "partial_rows": int(t["is_partial_day"].sum())},
     })

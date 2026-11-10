@@ -87,6 +87,15 @@ Every baseline is evaluated on the same days and with the same metrics as the mo
   - *(claude-code)* Features: daily median and 90th-percentile power in octave bands from 50 Hz to
     12 kHz, plus 50-500 Hz. This stays below the 24 kHz Nyquist limit of a 48 kHz recording. Features are
     standardised, and the L2 regularisation is chosen by the same leave-deployment-out CV.
+  - *Band edges (owner decision a, 2026-11-10; fixed before the v2 run. This implements this section and
+    is not an amendment):* computed from the same 24 kHz stream the model sees, in `src/pilot.py` (`BANDS`).
+    Bands are [lo, hi) in Hz: **50-100, 100-200, 200-400, 400-800, 800-1600, 1600-3200, 3200-6400,
+    6400-12000** (the top octave stops at the 12 kHz Nyquist limit and includes the Nyquist bin), plus
+    **50-500**. Power is the mean square of int16/32768 samples (Hann-windowed 5 s rfft, one-sided), averaged
+    over the windows of each 5-minute block and stored as dB re full scale. These are **relative levels, not
+    calibrated** sound pressure. The daily median and 90th percentile are taken over a day's blocks.
+    The 48→24 kHz anti-alias filter (soxr VHQ) is flat to about 11.2 kHz (−8 dB at 11.5 kHz, −53 dB at
+    11.8 kHz, measured 2026-11-10), so the top band effectively covers 6.4-11.3 kHz.
 
 ## 6. Known limits (to be stated with every result)
 
@@ -107,3 +116,12 @@ Every baseline is evaluated on the same days and with the same metrics as the mo
   sites and dates not stated; see `docs/model_notes.md`):*
   Our test days may overlap the pretrained model's training data; results are an audit of a pretrained model,
   not evidence of generalization to unseen data.
+
+## 7. Sensitivity analyses
+
+- *Amendment 2 (2026-11-10, owner instruction; reason: the pilot found 1.3-1.7% exact-zero samples in
+  sb01_02 files, which may be recorder dropouts):* every processed day records `zero_fraction`, the share of
+  exact-zero input samples at 48 kHz. Days with `zero_fraction > 0.01` are flagged (`zero_flag`). Each primary and
+  secondary metric is also reported **with flagged days excluded**, next to the main result. The flagged
+  days and their count are listed per split. The main result still includes them. The 1% cut is fixed now,
+  before any flagged-day counts on test days are known.

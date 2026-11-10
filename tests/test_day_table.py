@@ -117,3 +117,17 @@ def test_flac_truncated_block_is_flagged():
 def test_not_flac_raises():
     with pytest.raises(ValueError):
         parse_flac_header(b"RIFF....WAVE")
+
+
+def test_attach_zero_fraction(tmp_path):
+    import numpy as np
+
+    from src.day_table import attach_zero_fraction
+
+    np.savez(tmp_path / "sb01_01_2019-01-01.npz", zero_fraction=np.float64(0.015))
+    np.savez(tmp_path / "sb01_01_2019-01-02.npz", zero_fraction=np.float64(0.001))
+    t = pd.DataFrame({"site": ["sb01"] * 3, "deployment": ["01"] * 3,
+                      "date": ["2019-01-01", "2019-01-02", "2019-01-03"]})
+    out = attach_zero_fraction(t, tmp_path)
+    assert list(out["zero_flag"]) == [True, False, False]
+    assert out["zero_fraction"].isna().tolist() == [False, False, True]

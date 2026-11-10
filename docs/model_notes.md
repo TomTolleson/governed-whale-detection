@@ -39,7 +39,14 @@ long waveform with `context_step_samples=120000` matched per-window scoring to w
 
 **Source:** the owner's Claude Desktop session read `https://www.kaggle.com/models/google/multispecies-whale`
 in a browser on 2026-11-09 and passed on the details below. They were **not verified through the Kaggle API**,
-and claude-code has not seen the page. No license file is bundled with the download.
+and claude-code has not seen the page.
+
+- **The downloaded model folder contains no license file.** Checked 2026-11-10: it holds only
+  `saved_model.pb`, `keras_metadata.pb`, `fingerprint.pb` and `variables/` (plus kagglehub's `2.complete`
+  marker), and no file named like LICENSE, COPYING or NOTICE. The license terms above therefore rest only on the
+  model page.
+- **Evidence snapshot: pending.** The owner will save a PDF of the Kaggle model page in `docs/evidence/`.
+  Its SHA-256 and date go in `audit_log.jsonl` once the file exists. This does not block other work.
 
 - **License (TensorFlow 2 `default` variation): Apache 2.0.**
 - **Terms of Use (summary, not the page's wording):** users are asked to follow Google's AI principles and to

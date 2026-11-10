@@ -21,6 +21,8 @@ rule above. claude-code chose them, and they **need owner confirmation**.
 | is_partial_day | *(claude-code)* `0 < audio_hours < 24 h − 1 min`. Informational; not used by `eligible`. |
 | is_changeover_day | *(claude-code)* The same site and date also appear in another deployment's label file. Informational; not used by `eligible`. |
 | **eligible** | **`audio_hours >= 20` and not `no_audio`** (the owner's rule). |
+| zero_fraction | Owner decision 2026-11-10. The share of exact-zero input samples (48 kHz, before resampling) in the day's kept audio, read from `data/scores/v2/<day>.npz`. **NaN for days not processed**, which includes every test day until the owner releases them. Not used by `eligible`. |
+| zero_flag | `zero_fraction > 0.01`. Used only for the sensitivity analysis in `docs/eval_plan.md` §7. |
 
 ## Notes
 
