@@ -1,0 +1,229 @@
+{
+ "days": 300,
+ "features": {
+  "embedding": 1280,
+  "band": 18
+ },
+ "class_balance": [
+  {
+   "dep": "sb01_01",
+   "sample_days": 20,
+   "sample_present": 17,
+   "eligible_days": 76,
+   "eligible_present": 66,
+   "sample_present_rate": 0.85,
+   "eligible_present_rate": 0.868
+  },
+  {
+   "dep": "sb01_02",
+   "sample_days": 17,
+   "sample_present": 7,
+   "eligible_days": 63,
+   "eligible_present": 25,
+   "sample_present_rate": 0.412,
+   "eligible_present_rate": 0.397
+  },
+  {
+   "dep": "sb01_03",
+   "sample_days": 14,
+   "sample_present": 4,
+   "eligible_days": 52,
+   "eligible_present": 16,
+   "sample_present_rate": 0.286,
+   "eligible_present_rate": 0.308
+  },
+  {
+   "dep": "sb01_04",
+   "sample_days": 17,
+   "sample_present": 2,
+   "eligible_days": 61,
+   "eligible_present": 6,
+   "sample_present_rate": 0.118,
+   "eligible_present_rate": 0.098
+  },
+  {
+   "dep": "sb01_05",
+   "sample_days": 17,
+   "sample_present": 3,
+   "eligible_days": 63,
+   "eligible_present": 11,
+   "sample_present_rate": 0.176,
+   "eligible_present_rate": 0.175
+  },
+  {
+   "dep": "sb01_06",
+   "sample_days": 16,
+   "sample_present": 13,
+   "eligible_days": 61,
+   "eligible_present": 51,
+   "sample_present_rate": 0.812,
+   "eligible_present_rate": 0.836
+  },
+  {
+   "dep": "sb01_07",
+   "sample_days": 14,
+   "sample_present": 10,
+   "eligible_days": 55,
+   "eligible_present": 38,
+   "sample_present_rate": 0.714,
+   "eligible_present_rate": 0.691
+  },
+  {
+   "dep": "sb01_08",
+   "sample_days": 18,
+   "sample_present": 7,
+   "eligible_days": 66,
+   "eligible_present": 26,
+   "sample_present_rate": 0.389,
+   "eligible_present_rate": 0.394
+  },
+  {
+   "dep": "sb01_09",
+   "sample_days": 17,
+   "sample_present": 16,
+   "eligible_days": 65,
+   "eligible_present": 62,
+   "sample_present_rate": 0.941,
+   "eligible_present_rate": 0.954
+  },
+  {
+   "dep": "sb02_01",
+   "sample_days": 20,
+   "sample_present": 18,
+   "eligible_days": 76,
+   "eligible_present": 67,
+   "sample_present_rate": 0.9,
+   "eligible_present_rate": 0.882
+  },
+  {
+   "dep": "sb02_02",
+   "sample_days": 16,
+   "sample_present": 8,
+   "eligible_days": 63,
+   "eligible_present": 31,
+   "sample_present_rate": 0.5,
+   "eligible_present_rate": 0.492
+  },
+  {
+   "dep": "sb02_03",
+   "sample_days": 15,
+   "sample_present": 12,
+   "eligible_days": 59,
+   "eligible_present": 46,
+   "sample_present_rate": 0.8,
+   "eligible_present_rate": 0.78
+  },
+  {
+   "dep": "sb02_04",
+   "sample_days": 16,
+   "sample_present": 6,
+   "eligible_days": 61,
+   "eligible_present": 24,
+   "sample_present_rate": 0.375,
+   "eligible_present_rate": 0.393
+  },
+  {
+   "dep": "sb02_05",
+   "sample_days": 17,
+   "sample_present": 12,
+   "eligible_days": 63,
+   "eligible_present": 44,
+   "sample_present_rate": 0.706,
+   "eligible_present_rate": 0.698
+  },
+  {
+   "dep": "sb02_06",
+   "sample_days": 16,
+   "sample_present": 16,
+   "eligible_days": 61,
+   "eligible_present": 59,
+   "sample_present_rate": 1.0,
+   "eligible_present_rate": 0.967
+  },
+  {
+   "dep": "sb02_07",
+   "sample_days": 15,
+   "sample_present": 14,
+   "eligible_days": 55,
+   "eligible_present": 52,
+   "sample_present_rate": 0.933,
+   "eligible_present_rate": 0.945
+  },
+  {
+   "dep": "sb02_08",
+   "sample_days": 18,
+   "sample_present": 8,
+   "eligible_days": 66,
+   "eligible_present": 29,
+   "sample_present_rate": 0.444,
+   "eligible_present_rate": 0.439
+  },
+  {
+   "dep": "sb02_09",
+   "sample_days": 17,
+   "sample_present": 16,
+   "eligible_days": 65,
+   "eligible_present": 62,
+   "sample_present_rate": 0.941,
+   "eligible_present_rate": 0.954
+  }
+ ],
+ "overall_present_rate": 0.63,
+ "deployment_prior_auroc_loo": 0.783,
+ "deployment_id": {
+  "embedding": {
+   "balanced_accuracy": 0.947,
+   "chance": 0.056,
+   "n_classes": 18
+  },
+  "band": {
+   "balanced_accuracy": 0.365,
+   "chance": 0.056,
+   "n_classes": 18
+  },
+  "embedding+band": {
+   "balanced_accuracy": 0.951,
+   "chance": 0.056,
+   "n_classes": 18
+  }
+ },
+ "site_id_auroc": {
+  "embedding": {
+   "auroc": 0.999,
+   "n_pos": 150,
+   "n_neg": 150
+  },
+  "band": {
+   "auroc": 0.951,
+   "n_pos": 150,
+   "n_neg": 150
+  }
+ },
+ "sb01_02_vs_rest": {
+  "embedding": {
+   "auroc": 0.998,
+   "n_pos": 17,
+   "n_neg": 283
+  },
+  "band": {
+   "auroc": 0.764,
+   "n_pos": 17,
+   "n_neg": 283
+  }
+ },
+ "sb01_02_vs_sb02_02": {
+  "embedding": {
+   "auroc": 1.0,
+   "n_pos": 17,
+   "n_neg": 16
+  },
+  "band": {
+   "auroc": 0.849,
+   "n_pos": 17,
+   "n_neg": 16
+  }
+ },
+ "notes": [
+  "Deployments are disjoint in time, so 18-way ID is confounded with season and date; site ID (B) and sb01_02 vs sb02_02 (D) control for calendar time."
+ ]
+}
