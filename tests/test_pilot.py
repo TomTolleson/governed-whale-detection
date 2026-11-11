@@ -106,3 +106,11 @@ def test_auroc_and_ap():
     assert auroc([0, 0, 1, 1], [0.1, 0.2, 0.3, 0.4]) == 1.0
     assert auroc([0, 1], [0.5, 0.5]) == 0.5
     assert average_precision([1, 0, 1], [0.9, 0.8, 0.7]) == pytest.approx((1 + 2 / 3) / 2)
+
+
+def test_count_stretches():
+    from src.pilot import count_stretches
+
+    assert count_stretches(np.array([])) == 0
+    assert count_stretches(np.arange(0, 86400, 5.0)) == 1                       # one grid all day
+    assert count_stretches(np.r_[np.arange(0, 100, 5.0), np.arange(107, 200, 5.0)]) == 2  # 7 s real gap

@@ -271,7 +271,6 @@ class DayAccumulator:
         self.band_sum = defaultdict(lambda: np.zeros(len(BANDS), np.float64))
         self.n = defaultdict(int)
         self.zeros = self.samples = 0
-        self.stretches = 0           # continuous stretches that produced windows
         self.dropped_tail_s = 0.0    # partial windows dropped at real gaps, midnight and the deployment end
 
     def add(self, t, scores, emb, bands):
@@ -281,6 +280,13 @@ class DayAccumulator:
             self.emb_sum[b] += e
             self.band_sum[b] += p
             self.n[b] += 1
+
+
+def count_stretches(t):
+    """Continuous stretches of windows in a day: 1 + breaks in the 5 s grid (sorted window starts t)."""
+    if not len(t):
+        return 0
+    return 1 + int((np.diff(t) > WIN_S + 1e-6).sum())
 
 
 def completed_days(out_dir=OUT_DIR, log_path=DEFAULT_LOG):
@@ -415,8 +421,6 @@ def main(actor, workers, limit, skip_existing, days_csv, out_dir, allow_dirty):
             elif dkey in selected and dkey not in saved:
                 acc[dkey].dropped_tail_s += len(tail) / SR
             if dkey in selected and dkey not in saved:
-                if n:
-                    acc[dkey].stretches += int(j > 0 or not stitched)  # new grid at midnight or after a gap
                 score(dkey, off, piece)
                 acc[dkey].files.append({**info, "piece_offset_s": off, "piece_windows": n,
                                         "stitched_from_prev": stitched and j == 0})
@@ -520,7 +524,7 @@ def save_day(dkey, a: DayAccumulator, classes, wall_s, actor, out_dir, stamp):
                         git_commit=np.array(stamp["git_commit"]),
                         files=np.array(json.dumps(a.files)))
     rep = {**stamp, "day": dkey, "windows": int(len(t)), "hours": round(hours, 3), "files": len(a.files),
-           "wall_s": round(wall_s, 1), "blocks": int(len(blocks)), "stretches": a.stretches,
+           "wall_s": round(wall_s, 1), "blocks": int(len(blocks)), "stretches": count_stretches(t),
            "dropped_tail_s": round(a.dropped_tail_s, 3),
            "zero_fraction": zero_fraction, "zero_flag": bool(zero_fraction is not None and zero_fraction > ZERO_FLAG),
            "humpback_median": float(np.median(hb)) if len(hb) else None,
