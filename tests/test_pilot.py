@@ -114,3 +114,26 @@ def test_count_stretches():
     assert count_stretches(np.array([])) == 0
     assert count_stretches(np.arange(0, 86400, 5.0)) == 1                       # one grid all day
     assert count_stretches(np.r_[np.arange(0, 100, 5.0), np.arange(107, 200, 5.0)]) == 2  # 7 s real gap
+
+
+def test_select_days_test_split_only_when_asked(tmp_path):
+    p = tmp_path / "d.csv"
+    pd.DataFrame({"split": ["trainval", "test_T"], "site": ["sb01", "sb01"], "deployment": ["01", "10"],
+                  "date": ["2019-01-01", "2020-07-01"]}).to_csv(p, index=False)
+    assert list(select_days(p)["split"]) == ["trainval"]
+    assert list(select_days(p, "test_T")["split"]) == ["test_T"]
+    with pytest.raises(SystemExit):
+        select_days(p, "test")
+
+
+def test_test_gate():
+    from src.pilot import OUT_DIR, TEST_OUT_DIR, check_test_gate
+
+    ok = dict(split="test_T", commit="abc", tags=["eval-freeze-v1"], approval="owner: go, 2026-11-12",
+              out_dir=TEST_OUT_DIR, allow_dirty=False)
+    assert check_test_gate(**ok)["freeze_tags"] == ["eval-freeze-v1"]
+    assert check_test_gate(**{**ok, "split": "trainval", "tags": []}) is None
+    for bad in [{"tags": []}, {"approval": ""}, {"approval": None}, {"commit": "abc-dirty"},
+                {"allow_dirty": True}, {"out_dir": OUT_DIR}]:
+        with pytest.raises(SystemExit):
+            check_test_gate(**{**ok, **bad})

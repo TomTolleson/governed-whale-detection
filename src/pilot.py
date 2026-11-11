@@ -1,10 +1,14 @@
-"""Score train/val days with Google's multispecies whale model (pipeline v2).
+"""Score sampled days with Google's multispecies whale model (pipeline v2).
 
     python -m src.pilot --actor <name> [--days data/sample_days.csv] [--out data/scores/v2]
                         [--workers 5] [--limit N] [--skip-existing] [--allow-dirty]
+    python -m src.pilot --actor <name> --split test_T|test_S --owner-approval "<owner's words, date>"
 
-Only rows with split == "trainval" are read from the day list. Test days are never processed,
-and the script has no option to process them.
+By default only rows with split == "trainval" are read. A test split runs only through the TEST GATE
+(`check_test_gate`, docs/evaluation-plan.md section 8):
+  * HEAD carries an `eval-freeze-*` tag, the tree is clean and --allow-dirty is not given;
+  * --owner-approval quotes the owner's release (it is logged verbatim);
+  * output goes to data/scores/v2_test, never to the train/val directory.
 
 For each selected UTC day:
   * every audio file overlapping that day is streamed into memory (never written to disk), decoded
@@ -47,6 +51,8 @@ PIPELINE_VERSION = "2"
 MODEL_DIR = ROOT / "data/models/models/google/multispecies-whale/tensorFlow2/default/2"
 DAYS_CSV = ROOT / "data" / "sample_days.csv"
 OUT_DIR = ROOT / "data" / "scores" / "v2"
+TEST_OUT_DIR = ROOT / "data" / "scores" / "v2_test"
+SPLITS = ("trainval", "test_T", "test_S")
 SR_IN, SR = 48000, 24000      # file rate; model rate (model metadata: input_sample_rate)
 WIN = 120000                  # model metadata: context_width_samples (5 s at 24 kHz)
 WIN_S = WIN / SR
@@ -97,12 +103,39 @@ def band_power_np(x):
 
 # ---------------------------------------------------------------- planning and stitching
 
-def select_days(days_csv=DAYS_CSV):
+def select_days(days_csv=DAYS_CSV, split="trainval"):
+    if split not in SPLITS:
+        raise SystemExit(f"unknown split {split!r}; refusing")
     days = pd.read_csv(days_csv, dtype={"deployment": str})
-    days = days[days["split"] == "trainval"][["split", "site", "deployment", "date"]]
-    if set(days["split"]) != {"trainval"}:
-        raise SystemExit("no train/val days selected; refusing")
+    days = days[days["split"] == split][["split", "site", "deployment", "date"]]
+    if set(days["split"]) != {split}:
+        raise SystemExit(f"no {split} days selected; refusing")
     return days.reset_index(drop=True)
+
+
+def freeze_tags():
+    """eval-freeze-* tags on HEAD."""
+    out = subprocess.run(["git", "tag", "--points-at", "HEAD"], cwd=ROOT, capture_output=True, text=True,
+                         check=True).stdout.split()
+    return [t for t in out if t.startswith("eval-freeze-")]
+
+
+def check_test_gate(split, commit, tags, approval, out_dir, allow_dirty):
+    """Refuse a test split unless every condition of the test gate holds. Returns the gate record to log."""
+    if split == "trainval":
+        return None
+    problems = []
+    if allow_dirty or commit.endswith("-dirty"):
+        problems.append("tree is dirty or --allow-dirty given")
+    if not tags:
+        problems.append("HEAD has no eval-freeze-* tag")
+    if not (approval and approval.strip()):
+        problems.append("--owner-approval missing")
+    if out_dir.resolve() != TEST_OUT_DIR.resolve():
+        problems.append(f"test output must go to {TEST_OUT_DIR.relative_to(ROOT)}")
+    if problems:
+        raise SystemExit("test gate refused: " + "; ".join(problems))
+    return {"split": split, "freeze_tags": tags, "git_commit": commit, "owner_approval": approval}
 
 
 def plan_tasks(days: pd.DataFrame, listing: dict):
@@ -319,8 +352,12 @@ def git_commit(allow_dirty):
 
 # ---------------------------------------------------------------- main
 
-def main(actor, workers, limit, skip_existing, days_csv, out_dir, allow_dirty):
+def main(actor, workers, limit, skip_existing, days_csv, out_dir, allow_dirty, split="trainval", approval=None):
     commit = git_commit(allow_dirty)
+    gate = check_test_gate(split, commit, freeze_tags() if split != "trainval" else [], approval, out_dir,
+                           allow_dirty)
+    if gate:
+        log_event(actor, "test_gate_passed", gate)
     os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
     import tensorflow as tf
 
@@ -341,7 +378,7 @@ def main(actor, workers, limit, skip_existing, days_csv, out_dir, allow_dirty):
         p = tf.math.square(tf.abs(tf.signal.rfft(x)))
         return tf.sigmoid(model.logits(sp)), model.features(sp), tf.matmul(p, bw_t)
 
-    days = select_days(days_csv)
+    days = select_days(days_csv, split)
     if limit:
         days = days.head(limit)
     resumed = []
@@ -358,7 +395,7 @@ def main(actor, workers, limit, skip_existing, days_csv, out_dir, allow_dirty):
         for d in t["days"]:
             remaining[d] += 1
     out_dir.mkdir(parents=True, exist_ok=True)
-    stamp = {"pipeline_version": PIPELINE_VERSION, "git_commit": commit}
+    stamp = {"pipeline_version": PIPELINE_VERSION, "git_commit": commit, "split": split}
     log_event(actor, "score_start", {
         **stamp, "days": len(days), "files": len(tasks), "workers": workers,
         "gpu": [g.name for g in gpus], "days_csv": str(days_csv.relative_to(ROOT)),
@@ -547,7 +584,11 @@ if __name__ == "__main__":
     p.add_argument("--skip-existing", action="store_true",
                    help="resume: skip days whose .npz matches their logged sha256 (same version and out dir)")
     p.add_argument("--allow-dirty", action="store_true", help="run with uncommitted src/ changes (testing only)")
+    p.add_argument("--split", default="trainval", choices=SPLITS,
+                   help="test splits pass the test gate only (see check_test_gate)")
+    p.add_argument("--owner-approval", help="owner's release of test days, quoted verbatim (required for tests)")
     a = p.parse_args()
     from pathlib import Path
-    main(a.actor, a.workers, a.limit, a.skip_existing, Path(a.days).resolve(), Path(a.out).resolve(),
-         a.allow_dirty)
+    out = a.out if a.split == "trainval" or a.out != str(OUT_DIR) else str(TEST_OUT_DIR)
+    main(a.actor, a.workers, a.limit, a.skip_existing, Path(a.days).resolve(), Path(out).resolve(),
+         a.allow_dirty, a.split, a.owner_approval)
