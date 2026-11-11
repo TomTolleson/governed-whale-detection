@@ -16,7 +16,9 @@ Methods (day scores, out-of-fold):
   emb_block_lr    L2 logistic regression on 5-min block embeddings with the day label on every block (weak
                   labels); day score = max / top-3 / top-12 mean / mean of block scores (fixed C, no tuning)
 
-Metrics: pooled OOF AUROC (present positive) with a deployment-block bootstrap 95% CI (2000 resamples, seed
+Metrics: headline (eval-freeze-v2) within-site AUROC, pair-weighted over sites with >= 5 days of each class,
+with its own deployment-block bootstrap CI and paired differences (incl. vs site_prior); pooled OOF AUROC
+(present positive) with a deployment-block bootstrap 95% CI (2000 resamples, seed
 20261109); PR-AUC (absent positive); balanced accuracy where each fold's day threshold is chosen on the
 pooled OOF scores of the other 8 folds (so it is never tuned on the evaluated days); per-fold and per-site AUROC; site-ID probe; paired
 bootstrap differences against the best baseline. Test days are refused.
@@ -123,6 +125,43 @@ def boot_ci(y, scores: dict, groups, pairs=()):
     return {k: ci(v) for k, v in res.items()}, {k: ci(v) for k, v in diff.items()}
 
 
+def within_site_auroc(y, s, site, min_n=5):
+    """Pair-weighted within-site AUROC (evaluation-plan §3, eval-freeze-v2).
+
+    sum_s P_s*N_s*AUROC_s / sum_s P_s*N_s over sites with >= min_n present and >= min_n absent days:
+    the probability that a present day outscores an absent day from the same site (ties count 1/2).
+    Returns None if no site qualifies.
+    """
+    num = den = 0.0
+    for st in np.unique(site):
+        m = site == st
+        p, n = int(y[m].sum()), int(m.sum() - y[m].sum())
+        if p >= min_n and n >= min_n:
+            num += p * n * roc_auc_score(y[m], s[m])
+            den += p * n
+    return num / den if den else None
+
+
+def boot_ci_ws(y, scores: dict, groups, site, pairs=()):
+    """As boot_ci, for within-site AUROC. Own RNG stream (seed SEED), so the pooled CIs are unchanged.
+    A resample in which no site qualifies is drawn again."""
+    rng = np.random.default_rng(SEED)
+    res = {k: [] for k in scores}
+    diff = {f"{a} - {b}": [] for a, b in pairs}
+    for _ in range(N_BOOT):
+        while True:
+            i = boot_idx(groups, rng, y)
+            aucs = {k: within_site_auroc(y[i], v[i], site[i]) for k, v in scores.items()}
+            if all(a is not None for a in aucs.values()):
+                break
+        for k in scores:
+            res[k].append(aucs[k])
+        for a, b in pairs:
+            diff[f"{a} - {b}"].append(aucs[a] - aucs[b])
+    ci = lambda v: [round(float(np.percentile(v, 2.5)), 3), round(float(np.percentile(v, 97.5)), 3)]
+    return {k: ci(v) for k, v in res.items()}, {k: ci(v) for k, v in diff.items()}
+
+
 # ---------------------------------------------------------------- models
 
 def lr(C):
@@ -192,7 +231,7 @@ def loo_fold_threshold_pred(y, v, fold):
     return pred
 
 
-def summarise(s, out, keep, diag_pairs):
+def summarise(s, out, keep, diag_pairs, ws_pairs=()):
     days = np.flatnonzero(keep)
     y = s["label"].to_numpy()[days]
     groups = s["dep"].to_numpy()[days]
@@ -200,12 +239,17 @@ def summarise(s, out, keep, diag_pairs):
     site = s["site"].to_numpy()[days]
     scores = {k: v[days] for k, v in out.items()}
     ci, dci = boot_ci(y, scores, groups, diag_pairs)
+    ws_ci, ws_dci = boot_ci_ws(y, scores, groups, site, ws_pairs)
+    rnd = lambda a: round(a, 3) if a is not None else None
     res = {"days": int(len(days)), "present": int(y.sum()), "absent": int((1 - y).sum()),
            "deployments": int(len(np.unique(groups))), "absent_prevalence": round(float(1 - y.mean()), 3),
-           "methods": {}, "paired_differences": dci}
+           "methods": {}, "paired_differences": dci, "paired_differences_ws": ws_dci}
     site_label_auc = safe_auc((site == "sb02").astype(int), y)  # what the labels alone give
     for k, v in scores.items():
-        r = {"auroc": round(safe_auc(y, v), 3), "auroc_ci95": ci[k],
+        r = {"auroc_ws": rnd(within_site_auroc(y, v, site)), "auroc_ws_ci95": ws_ci[k],
+             "per_fold_ws": {f: rnd(within_site_auroc(y[fold == f], v[fold == f], site[fold == f]))
+                             for f in sorted(np.unique(fold))},
+             "auroc": round(safe_auc(y, v), 3), "auroc_ci95": ci[k],
              "pr_auc_absent_pos": round(float(average_precision_score(1 - y, -v)), 3),
              "bal_acc_loo_threshold": round(float(bal_acc(y, loo_fold_threshold_pred(y, v, fold))), 3),
              "pooled_oof_threshold": float(best_threshold(y, v)),
@@ -225,13 +269,14 @@ def main(actor, out_dir):
     baselines = ["month_prior", "ambient_noise", "zero_shot_primary"]
     models = ["emb_day_lr"] + [f"emb_block_lr_{a}" for a in AGGS]
     pairs = [(m, b) for m in models for b in baselines]
+    ws_pairs = pairs + [(m, "site_prior") for m in models + ["zero_shot_primary"]]
     results = {"git_commit": commit, "seed": SEED, "n_boot": N_BOOT, "emb_C": EMB_C, "C_grid": C_GRID,
                "scope": "train/val only; out-of-fold, leave-deployment-out (9 folds, both sites)"}
     variants = {"primary": np.ones(len(s), bool), "S1_excl_sb01_02": (s["dep"] != "sb01_02").to_numpy()}
     oof = {}
     for name, keep in variants.items():
         out, info = run_variant(s, band, emb_day, blocks, block_day, zs, keep)
-        results[name] = summarise(s, out, keep, pairs)
+        results[name] = summarise(s, out, keep, pairs, ws_pairs)
         results[name]["ambient_C_by_fold"] = info["ambient_C"]
         oof[name] = out
     # Primary restricted to non-sb01_02 days: separates the training effect from the evaluation-set change
