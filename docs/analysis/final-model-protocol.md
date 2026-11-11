@@ -1,8 +1,8 @@
-# Final-model selection and pre-test steps: protocol (DRAFT)
+# Final-model selection and pre-test steps: protocol
 
 | | |
 |---|---|
-| Status | **DRAFT: awaiting owner confirmation.** It is committed **before** any selection run, so its timestamp comes first. Nothing in it has been run |
+| Status | **Confirmed by the owner 2026-11-11** ("Confirm as proposed"; `owner_confirmation` entry; P4 also logged as a `plan_clarification`). The draft was committed at `084dc3d` before any selection run |
 | Written | 2026-11-11 by claude-code, at the owner's instruction ("Pre-test steps first") |
 | Governs | `docs/evaluation-plan.md` v2 (`eval-freeze-v2`), §3 ("final model … fixed on train/val … logged before any test label is read"; selection on AUROC_ws, decision D5) and §7 (drift report) |
 | Changes to frozen items | **None.** The pipeline, QA rules and evaluation plan are untouched. This protocol fills in details the plan leaves open. Items marked *(claude-code)* need owner confirmation (P1-P7, §6) |
