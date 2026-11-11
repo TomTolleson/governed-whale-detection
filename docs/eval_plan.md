@@ -41,7 +41,16 @@ Only eligible days from `data/day_table.csv` (rule: `docs/labeling_rules.md`).
 
 All metrics are day-level: one score and one label per site-day.
 
-- **Primary: AUROC**, with "present" (label 1) as the positive class.
+- *Amendment 3 (2026-11-11, owner decisions D1-D5, `docs/proposals/eval-freeze-v2-draft.md`; reason: the
+  embeddings identify the site (sb01 vs sb02 AUROC 0.999 at fixed calendar dates) and the deployment (18-way
+  balanced accuracy 0.947), and the two sites' present rates differ (0.53 vs 0.73), so pooled AUROC can reward
+  site identity instead of the humpback signal):* the **primary metric is within-site AUROC (AUROC_ws)**,
+  defined in `docs/evaluation-plan.md` §3. The AUROC below stays a **secondary** metric ("pooled AUROC") and is
+  always reported. The improvement claim is in `docs/evaluation-plan.md` §4. The CI method below is unchanged
+  and applies to both. *Disclosure:* this was decided after the train/val CV v1 results, including the
+  per-site AUROCs, had been seen. AUROC_ws had not been computed for any method, and no test day had been
+  processed or read.
+- **Primary: AUROC**, with "present" (label 1) as the positive class. *(Secondary from amendment 3.)*
   - 95% confidence interval from a **block bootstrap by deployment**: resample deployments with
     replacement and keep all of each chosen deployment's days.
   - *(claude-code)* 2,000 resamples, percentile interval. A resample that ends up with only one class is
