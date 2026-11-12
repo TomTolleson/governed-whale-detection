@@ -1,0 +1,51 @@
+{
+ "selected": "emb_block_lr_max_C0.001",
+ "family": "block",
+ "aggregation": "max",
+ "C": 0.001,
+ "features": "1280-d block embedding (5-min blocks), standardised",
+ "weak_labels": "every block takes its day's label",
+ "day_threshold": 0.9803928236460528,
+ "day_threshold_rule": "max balanced accuracy on pooled 9-fold OOF (Primary)",
+ "window_threshold": "not applicable (plan_clarification 2026-11-11, protocol P4)",
+ "baseline_thresholds": {
+  "month_prior": 0.7222222222222222,
+  "ambient_noise": 0.6276253592941594,
+  "zero_shot_primary": 0.5883069038391113
+ },
+ "ambient_noise_C": 10.0,
+ "month_prior_rate": {
+  "1": 0.6153846153846154,
+  "2": 0.18181818181818182,
+  "3": 0.6333333333333333,
+  "4": 0.6521739130434783,
+  "5": 0.8717948717948718,
+  "6": 0.5263157894736842,
+  "7": 0.10526315789473684,
+  "8": 0.4117647058823529,
+  "9": 0.4375,
+  "10": 0.6,
+  "11": 1.0,
+  "12": 0.972972972972973
+ },
+ "site_prior_rate": {
+  "sb01": 0.5266666666666666,
+  "sb02": 0.7333333333333333
+ },
+ "trained_on": {
+  "days": 300,
+  "present": 189,
+  "sample_days_sha256": "3c47e9bc196ba1338d6eab77949e57a41e643b382b7c4c752a39ca6c6201947d",
+  "feature_files": 300,
+  "feature_files_sha256": "9785f815feaffced1ebff792556a5a4801178ee849566bb566ddb99083d3f3c0"
+ },
+ "artefact": "data/models/final_v1.joblib",
+ "artefact_sha256": "3f7ed71563dff9f50275ce4ef8613c89d393ac446dfb1b2b0eb2e71921f0bf24",
+ "git_commit": "f516b506cb79c4954737d3f2819e87203eb44c8b",
+ "python": "3.10.12",
+ "sklearn": "1.5.2",
+ "numpy": "1.26.4",
+ "joblib": "1.6.0",
+ "deterministic": "L2 logistic regression (lbfgs); no random seed involved, so the 5-seed rule does not apply",
+ "S1_selected": "emb_block_lr_max_C0.01"
+}
