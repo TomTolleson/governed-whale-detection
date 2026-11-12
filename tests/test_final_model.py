@@ -37,3 +37,37 @@ def test_aggregate():
     p = [np.array([0.1, 0.9, 0.5]), np.array([0.2])]
     assert np.allclose(aggregate(p, "max"), [0.9, 0.2])
     assert np.allclose(aggregate(p, "mean"), [0.5, 0.2])
+
+
+def test_run_fits_checkpoints_resumes_and_detects_tampering(tmp_path, monkeypatch):
+    import pytest
+    import src.final_model as fm
+
+    monkeypatch.setattr(fm, "CKPT", tmp_path)
+    monkeypatch.setattr(fm, "MANIFEST", tmp_path / "manifest.jsonl")
+    monkeypatch.setattr(fm, "log_event", lambda *a, **k: None)
+    monkeypatch.setattr(fm, "PAUSE_C", 1e9)
+
+    class TL:
+        last = None
+        def take_window_max(self):
+            return None
+
+    rng = np.random.default_rng(0)
+    fold = np.repeat(["1", "2", "3"], 6)
+    y = np.tile([0, 1], 9)
+    block_day = np.repeat(np.arange(18), 3)
+    blocks = rng.normal(size=(54, 4)) + y[block_day][:, None]
+    emb = rng.normal(size=(18, 4)) + y[:, None]
+    keep = np.ones(18, bool)
+    tasks = [(frozenset(["1"]), 1.0), (frozenset(["2", "3"]), 1.0)]
+    a = fm.run_fits("v", tasks, keep, fold, y, blocks, block_day, emb, 1, "t", TL())
+    assert len(fm.read_manifest()) == 2
+    monkeypatch.setattr(fm, "fit_heldout", lambda *a, **k: (_ for _ in ()).throw(AssertionError("refit")))
+    b = fm.run_fits("v", tasks, keep, fold, y, blocks, block_day, emb, 1, "t", TL())  # all from checkpoints
+    for t in tasks:
+        assert np.array_equal(a[t][0], b[t][0]) and np.allclose(a[t][2], b[t][2])
+    f = tmp_path / fm.read_manifest()[("v", frozenset(["1"]), 1.0)]["file"]
+    f.write_bytes(f.read_bytes() + b"x")
+    with pytest.raises(fm.Anomaly):
+        fm.run_fits("v", tasks, keep, fold, y, blocks, block_day, emb, 1, "t", TL())
