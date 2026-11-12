@@ -1,5 +1,16 @@
 # Evaluation plan (frozen)
 
+> **How to read the two plan files** *(editorial note, 2026-11-12, at the owner's instruction. It changes no
+> rule, and is not an amendment or a deviation)*
+> - **Start at `docs/evaluation-plan.md`.** It is the overview frozen at `eval-freeze-v2` (`e204ff9`). It
+>   draws together every rule that must be fixed before test scoring.
+> - **Where the two files repeat each other, this file's wording governs.** `docs/evaluation-plan.md` says so
+>   in its own header.
+> - **Every item that `docs/evaluation-plan.md` adds governs as written there.** These are the items marked
+>   [new 2026-11-11] or [v2 2026-11-11], including the within-site AUROC headline (Amendment 3 below).
+> - This note was added after the `eval-freeze-v2` tag, so the tag checkout used for test scoring does not
+>   contain it. The rules are identical.
+
 Frozen 2026-11-09, before any model code ran. Changes after this point must be logged as new
 audit entries and marked as amendments here, with the reason. Items marked *(claude-code)* fill in
 details the owner's instructions did not state, and **need owner confirmation**.

@@ -22,6 +22,35 @@ wildlife conservation, research or education, not for profit (`docs/model_notes.
 - Licence terms are not yet confirmed (see `docs/inventory.md`). Raw data is never committed; it
   lives in `data/`, which git ignores.
 
+## Evaluation and governance
+
+- **The plan comes first.** The evaluation rules were frozen before any test day was processed:
+  - git tag `eval-freeze-v1` (`47a0b6f`);
+  - then `eval-freeze-v2` (`e204ff9`).
+
+  Both tags are pushed, so their timestamps can be checked independently.
+- **The plan files:**
+  - Start at `docs/evaluation-plan.md`.
+  - Where it repeats `docs/eval_plan.md`, the wording in `docs/eval_plan.md` governs.
+  - Details are in `docs/analysis/sb01_02-sensitivity-plan.md` and `docs/errata/`.
+- **Headline metric: within-site AUROC.** This is a **pre-test amendment, made after the train/val CV v1
+  results had been seen.**
+  - Under `eval-freeze-v1` the headline was pooled AUROC.
+  - The embeddings identify the recorder deployment (18-way balanced accuracy 0.947) and the site (AUROC
+    0.999), and the two sites' present rates differ. So pooled AUROC can reward site identity instead of
+    the humpback signal.
+  - The owner therefore moved the headline to within-site AUROC: the chance that a present day outscores an
+    absent day **from the same site**. Pooled AUROC is still reported every time, as a secondary metric.
+  - The change is **Amendment 3** in `docs/eval_plan.md` §3. The reasoning, owner decisions D1-D5 and the
+    disclosure are in `docs/proposals/eval-freeze-v2-draft.md`.
+  - It was frozen as `eval-freeze-v2` before any test day was processed. It is therefore a logged pre-test
+    amendment (`owner_decision` and `eval_freeze` audit entries), not a deviation. Under the plan (§8), a
+    deviation is a change made after test scoring begins.
+- **What every result carries:** per-site AUROC, the site-prior baseline and a site-ID probe, because of the
+  site and recorder shortcut.
+- **The audit log:** every step is logged in `audit_log.jsonl`, which is append-only and hash-chained
+  (`src/audit.py`, `verify_chain`).
+
 ## Layout
 
 ```
