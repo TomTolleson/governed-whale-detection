@@ -1,0 +1,166 @@
+{
+ "days": {
+  "test_T": 102,
+  "test_S": 148
+ },
+ "checks": {
+  "scores_match_independent_recompute_max_abs_diff": {
+   "final_model": 1.1102230246251565e-16,
+   "ambient_noise": 1.1102230246251565e-16,
+   "zero_shot_primary": 1.1102230246251565e-16
+  },
+  "zero_shot_matches_cv_v1_1_max_abs_diff": 1.1102230246251565e-16,
+  "random_labels": {
+   "test_T": {
+    "test_eval": 0.435,
+    "independent": 0.435,
+    "pooled_independent": 0.426,
+    "pooled_test_eval": 0.426,
+    "improves": false
+   },
+   "test_S": {
+    "test_eval": 0.519,
+    "independent": 0.519,
+    "pooled_independent": 0.519,
+    "pooled_test_eval": 0.519,
+    "improves": false
+   }
+  },
+  "headline_split": "test_S",
+  "zero_flag_variant_present": {
+   "test_T": true,
+   "test_S": false,
+   "test_S_10_12": false
+  },
+  "known_answer": {
+   "test_T": {
+    "auroc_ws": 1.0,
+    "claim": {
+     "best_baseline_by_auroc_ws": "month_prior",
+     "condition_1_auroc_ws_ci_excludes_0_5": true,
+     "condition_2_paired_ws_ci_vs_best_excludes_0": true,
+     "improves": true
+    }
+   },
+   "test_S": {
+    "auroc_ws": 1.0,
+    "claim": {
+     "best_baseline_by_auroc_ws": "zero_shot_primary",
+     "condition_1_auroc_ws_ci_excludes_0_5": true,
+     "condition_2_paired_ws_ci_vs_best_excludes_0": true,
+     "improves": true
+    }
+   },
+   "test_S_10_12": {
+    "auroc_ws": 1.0,
+    "claim": {
+     "best_baseline_by_auroc_ws": "zero_shot_primary",
+     "condition_1_auroc_ws_ci_excludes_0_5": true,
+     "condition_2_paired_ws_ci_vs_best_excludes_0": true,
+     "improves": true
+    }
+   }
+  },
+  "exclusions": {
+   "listed": [
+    "sb01_10_2019-01-19",
+    "sb03_05_2019-08-08",
+    "sb03_05_2019-08-14",
+    "sb03_05_2019-08-16"
+   ],
+   "expected": [
+    "sb01_10_2019-01-19",
+    "sb03_05_2019-08-08",
+    "sb03_05_2019-08-14",
+    "sb03_05_2019-08-16"
+   ],
+   "concentration": {
+    "test_S": {
+     "excluded": 3,
+     "by_deployment": {
+      "sb03_05": 3
+     },
+     "sampled_by_deployment": {
+      "sb03_05": 17
+     },
+     "concentrated": [
+      "sb03_05"
+     ]
+    },
+    "test_T": {
+     "excluded": 1,
+     "by_deployment": {
+      "sb01_10": 1
+     },
+     "sampled_by_deployment": {
+      "sb01_10": 20
+     },
+     "concentrated": []
+    }
+   },
+   "days_after": 145,
+   "sb01_02_equivalent_variant": true
+  },
+  "refusals": {
+   "artefact_tampered": {
+    "refused": "refused: final-model artefact SHA-256 does not match spec and audit entry",
+    "label_columns_read": 0,
+    "stage_b_release_logged": false
+   },
+   "spec_tampered": {
+    "refused": "refused: spec.json SHA-256 does not match the final_model entry",
+    "label_columns_read": 0,
+    "stage_b_release_logged": false
+   },
+   "drift_report_missing_test_S": {
+    "refused": "refused: no Stage A drift_report for test_S",
+    "label_columns_read": 0,
+    "stage_b_release_logged": false
+   },
+   "score_file_tampered": {
+    "refused": "refused: sb01_10_2018-11-30: missing, unlogged or SHA-256 mismatch",
+    "label_columns_read": 0,
+    "stage_b_release_logged": false
+   },
+   "features_not_freeze_tag_commit": {
+    "refused": "refused: test features not stamped with a freeze-tag commit: ['d2f4fe59d1167629783caf7a9b287290456c5f47']",
+    "label_columns_read": 0,
+    "stage_b_release_logged": false
+   },
+   "stage_b_release_missing": {
+    "refused": "refused: --owner-approval (the owner's Stage B release) is required",
+    "label_columns_read": 0,
+    "stage_b_release_logged": false
+   }
+  },
+  "label_reads_in_completed_runs": {
+   "random": [
+    {
+     "file": "/tmp/claude-1000/-home-tom-noaa-whale/1c59d900-8ab4-45ed-8d92-2834633c1ac2/scratchpad/dryrun2/random/days.csv",
+     "label_column": true,
+     "stage_b_release_already_logged": true
+    }
+   ],
+   "known_answer": [
+    {
+     "file": "/tmp/claude-1000/-home-tom-noaa-whale/1c59d900-8ab4-45ed-8d92-2834633c1ac2/scratchpad/dryrun2/known_answer/days.csv",
+     "label_column": true,
+     "stage_b_release_already_logged": true
+    }
+   ],
+   "exclusions": [
+    {
+     "file": "/tmp/claude-1000/-home-tom-noaa-whale/1c59d900-8ab4-45ed-8d92-2834633c1ac2/scratchpad/dryrun2/exclusions/days.csv",
+     "label_column": true,
+     "stage_b_release_already_logged": true
+    }
+   ]
+  },
+  "label_field_in_any_scratch_log": false,
+  "npz_restored_after_tamper_test": true,
+  "real_audit_log_unchanged": true
+ },
+ "all_checks_pass": true,
+ "note": "Dry-run metrics are MEANINGLESS as performance: the labels are fake, and the final model was trained on these very train/val features. The run checks plumbing, recomputation and refusals only.",
+ "test_eval_sha256": "1545815e589b8ec37a406ec942d072dcb83ad8f197704d5d00d7132ae88c73af"
+}
