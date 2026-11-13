@@ -1,0 +1,138 @@
+[primary] 0 fits verified from checkpoints, 225 to fit
+[primary] 4/225 fits; 16 s per fit; ~57 min left; Tctl 60.625
+[primary] 8/225 fits; 15 s per fit; ~56 min left; Tctl 60.625
+[primary] 12/225 fits; 16 s per fit; ~56 min left; Tctl 59.125
+[primary] 16/225 fits; 16 s per fit; ~54 min left; Tctl 60.125
+[primary] 20/225 fits; 16 s per fit; ~54 min left; Tctl 63.75
+[primary] 24/225 fits; 16 s per fit; ~53 min left; Tctl 59.25
+[primary] 28/225 fits; 16 s per fit; ~52 min left; Tctl 60.875
+[primary] 32/225 fits; 16 s per fit; ~51 min left; Tctl 60.625
+[primary] 36/225 fits; 16 s per fit; ~50 min left; Tctl 60.125
+[primary] 40/225 fits; 16 s per fit; ~49 min left; Tctl 59.875
+[primary] 44/225 fits; 16 s per fit; ~48 min left; Tctl 60.0
+[primary] 48/225 fits; 17 s per fit; ~51 min left; Tctl 63.125
+[primary] 52/225 fits; 18 s per fit; ~53 min left; Tctl 61.125
+[primary] 56/225 fits; 19 s per fit; ~55 min left; Tctl 61.125
+[primary] 60/225 fits; 20 s per fit; ~56 min left; Tctl 62.125
+[primary] 64/225 fits; 21 s per fit; ~57 min left; Tctl 60.0
+[primary] 68/225 fits; 22 s per fit; ~58 min left; Tctl 59.875
+[primary] 72/225 fits; 23 s per fit; ~58 min left; Tctl 60.5
+[primary] 76/225 fits; 23 s per fit; ~58 min left; Tctl 61.625
+[primary] 80/225 fits; 24 s per fit; ~57 min left; Tctl 59.375
+[primary] 84/225 fits; 24 s per fit; ~57 min left; Tctl 64.125
+[primary] 88/225 fits; 25 s per fit; ~57 min left; Tctl 60.5
+[primary] 92/225 fits; 26 s per fit; ~57 min left; Tctl 60.375
+[primary] 96/225 fits; 27 s per fit; ~58 min left; Tctl 59.625
+[primary] 100/225 fits; 28 s per fit; ~59 min left; Tctl 64.25
+[primary] 104/225 fits; 29 s per fit; ~59 min left; Tctl 59.75
+[primary] 108/225 fits; 31 s per fit; ~60 min left; Tctl 61.75
+[primary] 112/225 fits; 32 s per fit; ~59 min left; Tctl 60.625
+[primary] 116/225 fits; 33 s per fit; ~59 min left; Tctl 62.125
+[primary] 120/225 fits; 33 s per fit; ~58 min left; Tctl 63.0
+[primary] 124/225 fits; 34 s per fit; ~58 min left; Tctl 60.625
+[primary] 128/225 fits; 35 s per fit; ~57 min left; Tctl 61.375
+[primary] 132/225 fits; 36 s per fit; ~55 min left; Tctl 60.375
+[primary] 136/225 fits; 37 s per fit; ~54 min left; Tctl 65.0
+[primary] 140/225 fits; 38 s per fit; ~53 min left; Tctl 62.5
+[primary] 144/225 fits; 38 s per fit; ~52 min left; Tctl 62.25
+[primary] 148/225 fits; 39 s per fit; ~50 min left; Tctl 62.0
+[primary] 152/225 fits; 40 s per fit; ~49 min left; Tctl 61.375
+[primary] 156/225 fits; 41 s per fit; ~47 min left; Tctl 61.75
+[primary] 160/225 fits; 42 s per fit; ~45 min left; Tctl 60.75
+[primary] 164/225 fits; 42 s per fit; ~43 min left; Tctl 59.75
+[primary] 168/225 fits; 43 s per fit; ~41 min left; Tctl 66.125
+[primary] 172/225 fits; 44 s per fit; ~39 min left; Tctl 61.25
+[primary] 176/225 fits; 44 s per fit; ~36 min left; Tctl 61.5
+[primary] 180/225 fits; 45 s per fit; ~34 min left; Tctl 63.5
+[primary] 184/225 fits; 46 s per fit; ~31 min left; Tctl 61.75
+[primary] 188/225 fits; 46 s per fit; ~28 min left; Tctl 61.0
+[primary] 192/225 fits; 47 s per fit; ~26 min left; Tctl 63.875
+[primary] 196/225 fits; 47 s per fit; ~23 min left; Tctl 63.0
+[primary] 200/225 fits; 48 s per fit; ~20 min left; Tctl 60.375
+[primary] 204/225 fits; 48 s per fit; ~17 min left; Tctl 61.125
+[primary] 208/225 fits; 49 s per fit; ~14 min left; Tctl 61.5
+[primary] 212/225 fits; 49 s per fit; ~11 min left; Tctl 62.25
+[primary] 216/225 fits; 50 s per fit; ~7 min left; Tctl 61.25
+[primary] 220/225 fits; 50 s per fit; ~4 min left; Tctl 62.875
+[primary] 224/225 fits; 51 s per fit; ~1 min left; Tctl 60.5
+[primary] 225/225 fits; 51 s per fit; ~0 min left; Tctl 60.75
+[S1_excl_sb01_02] 0 fits verified from checkpoints, 225 to fit
+[S1_excl_sb01_02] 4/225 fits; 15 s per fit; ~56 min left; Tctl 62.625
+[S1_excl_sb01_02] 8/225 fits; 14 s per fit; ~52 min left; Tctl 59.875
+[S1_excl_sb01_02] 12/225 fits; 15 s per fit; ~53 min left; Tctl 60.625
+[S1_excl_sb01_02] 16/225 fits; 15 s per fit; ~52 min left; Tctl 59.0
+[S1_excl_sb01_02] 20/225 fits; 15 s per fit; ~51 min left; Tctl 61.125
+[S1_excl_sb01_02] 24/225 fits; 15 s per fit; ~50 min left; Tctl 60.875
+[S1_excl_sb01_02] 28/225 fits; 15 s per fit; ~49 min left; Tctl 59.625
+[S1_excl_sb01_02] 32/225 fits; 15 s per fit; ~47 min left; Tctl 59.875
+[S1_excl_sb01_02] 36/225 fits; 15 s per fit; ~46 min left; Tctl 59.125
+[S1_excl_sb01_02] 40/225 fits; 15 s per fit; ~45 min left; Tctl 59.375
+[S1_excl_sb01_02] 44/225 fits; 15 s per fit; ~44 min left; Tctl 60.75
+[S1_excl_sb01_02] 48/225 fits; 16 s per fit; ~47 min left; Tctl 62.875
+[S1_excl_sb01_02] 52/225 fits; 17 s per fit; ~49 min left; Tctl 59.625
+[S1_excl_sb01_02] 56/225 fits; 18 s per fit; ~51 min left; Tctl 62.625
+[S1_excl_sb01_02] 60/225 fits; 19 s per fit; ~52 min left; Tctl 60.625
+[S1_excl_sb01_02] 64/225 fits; 20 s per fit; ~53 min left; Tctl 61.125
+[S1_excl_sb01_02] 68/225 fits; 20 s per fit; ~53 min left; Tctl 60.5
+[S1_excl_sb01_02] 72/225 fits; 21 s per fit; ~54 min left; Tctl 61.25
+[S1_excl_sb01_02] 76/225 fits; 22 s per fit; ~54 min left; Tctl 61.75
+[S1_excl_sb01_02] 80/225 fits; 22 s per fit; ~53 min left; Tctl 60.875
+[S1_excl_sb01_02] 84/225 fits; 22 s per fit; ~53 min left; Tctl 61.75
+[S1_excl_sb01_02] 88/225 fits; 23 s per fit; ~52 min left; Tctl 61.25
+[S1_excl_sb01_02] 92/225 fits; 24 s per fit; ~53 min left; Tctl 62.25
+[S1_excl_sb01_02] 96/225 fits; 25 s per fit; ~54 min left; Tctl 61.375
+[S1_excl_sb01_02] 100/225 fits; 26 s per fit; ~55 min left; Tctl 60.375
+[S1_excl_sb01_02] 104/225 fits; 28 s per fit; ~56 min left; Tctl 63.125
+[S1_excl_sb01_02] 108/225 fits; 29 s per fit; ~56 min left; Tctl 59.875
+[S1_excl_sb01_02] 112/225 fits; 30 s per fit; ~56 min left; Tctl 59.0
+[S1_excl_sb01_02] 116/225 fits; 30 s per fit; ~55 min left; Tctl 61.0
+[S1_excl_sb01_02] 120/225 fits; 31 s per fit; ~55 min left; Tctl 62.125
+[S1_excl_sb01_02] 124/225 fits; 32 s per fit; ~54 min left; Tctl 60.625
+[S1_excl_sb01_02] 128/225 fits; 33 s per fit; ~53 min left; Tctl 62.125
+[S1_excl_sb01_02] 132/225 fits; 33 s per fit; ~52 min left; Tctl 62.5
+[S1_excl_sb01_02] 136/225 fits; 34 s per fit; ~51 min left; Tctl 60.75
+[S1_excl_sb01_02] 140/225 fits; 35 s per fit; ~50 min left; Tctl 60.25
+[S1_excl_sb01_02] 144/225 fits; 36 s per fit; ~48 min left; Tctl 59.875
+[S1_excl_sb01_02] 148/225 fits; 37 s per fit; ~47 min left; Tctl 64.0
+[S1_excl_sb01_02] 152/225 fits; 38 s per fit; ~46 min left; Tctl 63.0
+[S1_excl_sb01_02] 156/225 fits; 39 s per fit; ~44 min left; Tctl 63.0
+[S1_excl_sb01_02] 160/225 fits; 39 s per fit; ~43 min left; Tctl 61.625
+[S1_excl_sb01_02] 164/225 fits; 40 s per fit; ~41 min left; Tctl 61.0
+[S1_excl_sb01_02] 168/225 fits; 41 s per fit; ~39 min left; Tctl 59.75
+[S1_excl_sb01_02] 172/225 fits; 41 s per fit; ~36 min left; Tctl 59.5
+[S1_excl_sb01_02] 176/225 fits; 42 s per fit; ~34 min left; Tctl 63.125
+[S1_excl_sb01_02] 180/225 fits; 42 s per fit; ~32 min left; Tctl 61.25
+[S1_excl_sb01_02] 184/225 fits; 43 s per fit; ~29 min left; Tctl 63.625
+[S1_excl_sb01_02] 188/225 fits; 43 s per fit; ~27 min left; Tctl 62.25
+[S1_excl_sb01_02] 192/225 fits; 44 s per fit; ~24 min left; Tctl 61.0
+[S1_excl_sb01_02] 196/225 fits; 45 s per fit; ~22 min left; Tctl 62.375
+[S1_excl_sb01_02] 200/225 fits; 45 s per fit; ~19 min left; Tctl 60.25
+[S1_excl_sb01_02] 204/225 fits; 46 s per fit; ~16 min left; Tctl 61.125
+[S1_excl_sb01_02] 208/225 fits; 46 s per fit; ~13 min left; Tctl 62.5
+[S1_excl_sb01_02] 212/225 fits; 46 s per fit; ~10 min left; Tctl 60.125
+[S1_excl_sb01_02] 216/225 fits; 47 s per fit; ~7 min left; Tctl 60.5
+[S1_excl_sb01_02] 220/225 fits; 47 s per fit; ~4 min left; Tctl 64.25
+[S1_excl_sb01_02] 224/225 fits; 48 s per fit; ~1 min left; Tctl 61.375
+[S1_excl_sb01_02] 225/225 fits; 48 s per fit; ~0 min left; Tctl 66.125
+{
+ "selected": "emb_block_lr_max_C0.001",
+ "S1_selected": "emb_block_lr_max_C0.01",
+ "threshold": 0.9803928236460528,
+ "nested_primary": {
+  "auroc_ws": 0.726,
+  "auroc_ws_ci95": [
+   0.639,
+   0.819
+  ],
+  "auroc": 0.735,
+  "auroc_ci95": [
+   0.649,
+   0.818
+  ],
+  "per_site": {
+   "sb01": 0.694,
+   "sb02": 0.767
+  },
+  "site_id_probe_auroc": 0.598
+ }
+}
