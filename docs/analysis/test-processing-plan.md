@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Status | **Written 2026-11-12, before any test audio is processed and before any test label is read.** Restates the frozen rules (evaluation-plan v2 §2, §5, §7, §8; sb01_02 plan §3c; eval_plan §7) and fixes the operating details they leave open |
-| Owner confirmation | **T1, T2 and T3 confirmed 2026-11-13, with amendments A1-A7 (plan text only).** Amended text is marked **[A1]** to **[A7]**. **[A8]** (§2.1, worktree `data/` as a real directory instead of a symlink) was found while making them, written in at the owner's instruction of 2026-11-13 and tested on a train/val day. It **awaits the owner's review** with the rest of this plan |
+| Owner confirmation | **T1, T2 and T3 confirmed 2026-11-13, with amendments A1-A7 (plan text only).** Amended text is marked **[A1]** to **[A7]**. **[A8]** (§2.1, worktree `data/` as a real directory instead of a symlink) was found while making them, tested on a train/val day, and **confirmed by the owner on 2026-11-13** once its inputs and the disk space were stated (§2.1). The concentration cut-offs in [A2] are **confirmed** too. The [A3] headline split stays in this plan; **no `eval-freeze-v3`** (owner decision, 2026-11-13). This version is tagged **`test-plan-v1`** |
 | Frozen commit for test scoring | tag **`eval-freeze-v2`**, commit **`e204ff9`** (`e204ff945e215d25de845494fe0b370187024d61`). `src/pilot.py` there is byte-identical to `eval-freeze-v1` (`47a0b6f`) |
 | Final model | `emb_block_lr_max_C0.001`, fixed in `docs/analysis/final_model/spec.json` (SHA-256 `a2be3bb4…bb8e931`). Artefact `data/models/final_v1.joblib`, SHA-256 `3f7ed71563dff9f50275ce4ef8613c89d393ac446dfb1b2b0eb2e71921f0bf24`, logged in the `final_model` audit entry (2026-11-12) and backed up (`model_backup` entry) |
 | Releases | **Stage A** (audio) and **Stage B** (labels). Each needs its own explicit owner release, quoted verbatim in the log (protocol P7). **Neither has been given** |
@@ -38,9 +38,24 @@ seed 20261109). There are **400 test days**. **No day is ever added, swapped or 
      - The output directory had been created first, and it was empty.
      - On a test split, `test_gate_passed` would have been logged before this crash.
    - **The fix needs no code change.** The worktree's `data/` is a real directory:
-     - **Inputs are copied in:** `sample_days.csv`, `audio_listing.json` and the multispecies-whale model
-       directory (`data/models/models/…`, 6 files, 27 MB). For QA re-runs, `data/qa_rerun/` holds the one-row
-       day lists.
+     - **Inputs are copied in.** These are all the local files the frozen `src/pilot.py` reads. It uses
+       `ROOT / …` only for `DAYS_CSV`, `LISTING_PATH`, `MODEL_DIR` and the output directory:
+       - `data/sample_days.csv` (24 KB, SHA-256 `3c47e9bc…201947d`);
+       - `data/audio_listing.json` (800 KB), the file names and sizes per deployment;
+       - `data/models/models/google/multispecies-whale/tensorFlow2/default/2/` (6 files, 27 MB, file-list
+         SHA-256 manifest `6f01befd…f0efd1e`);
+       - for QA re-runs only: `data/qa_rerun/<day>.csv`, the one-row day lists ([A2]).
+     - **Nothing else is copied.** No labels, no train/val features, and no other part of `data/`.
+     - **Downloaded at run time, not copied:**
+       - the test days' FLAC audio, streamed over HTTPS from the public bucket
+         (`https://storage.googleapis.com/noaa-passive-bioacoustic/sanctsound/audio/…`, anonymous);
+       - 2,557 files, about 830 GB in total.
+       Each file is read into memory (`io.BytesIO`), decoded and dropped. **No audio is written to disk**
+       (`audio_saved_to_disk: false` in `score_start`). So the 830 GB is network transfer, not disk use.
+     - **Disk needed.** Outputs are one `.npz` per day: train/val took 461 MB for 300 days, so about 615 MB
+       for the 400 test days. They are held twice (worktree and this repo), so about 1.3 GB in total, plus
+       28 MB of inputs.
+     - **Free on 2026-11-13:** 1,326 GB of 1,967 GB on `/`, about 1,000 times what is needed.
      - Their SHA-256 values are logged in `stage_a_preflight`, and checked again after Stage A.
      - **Outputs** go to the worktree's `data/scores/v2_test/`, the test gate's required directory.
      - **After Stage A,** that directory is copied to this repo's `data/scores/v2_test/`. Every `.npz` is checked
@@ -116,6 +131,12 @@ seed 20261109). There are **400 test days**. **No day is ever added, swapped or 
 
    - If a run is interrupted (network, crash), it is resumed with `--skip-existing`. That keeps only days whose
      `.npz` matches its logged SHA-256. A resume is **not** a QA re-run.
+     - **Checkpointing is per day.** A day's `.npz` is written and its `score_day` entry, with SHA-256, logged
+       as soon as its last file is processed.
+     - An interruption loses only the days in progress, and those are scored again from the start on resume.
+     - No `qa_rerun` entry is made and nothing is moved to `v2_test_first_attempt/`. Days whose file is
+       missing, or whose hash does not match, are simply scored again.
+     - The [A8] trial showed that a re-scored day's features are byte-identical to its first scoring.
    - **[A6] Labels in memory.** The frozen `src/pilot.py` (`select_days`, e204ff9 lines 106-113) reads the
      whole of `sample_days.csv` with pandas, **including its `label` column**. On the next line it keeps only
      `split`, `site`, `deployment` and `date`. So test labels are parsed into memory and dropped at once. They are
@@ -163,8 +184,8 @@ seed 20261109). There are **400 test days**. **No day is ever added, swapped or 
      - it holds at least half of its split's exclusions, and at least 2 of them; or
      - at least 20% of its own sampled days are excluded.
      A flag is reported in the Stage A report and in `results.json` (`qa_exclusion_concentration`). It is
-     reported, not acted on: nothing is dropped or re-weighted because of it. *(The 50% / 2-day / 20% cut-offs are
-     claude-code's proposal and need owner confirmation; they are fixed before any test day is processed.)*
+     reported, not acted on: nothing is dropped or re-weighted because of it. *(The 50% / 2-day / 20% cut-offs
+     were confirmed by the owner on 2026-11-13, report-only, before any test day was processed.)*
 6. **Drift report**, from this repo at the commit that adds `src/drift_report.py`. It reads features only:
 
    ```
@@ -243,6 +264,8 @@ seed 20261109). There are **400 test days**. **No day is ever added, swapped or 
   - The evaluation plan does not name a headline split. `docs/evaluation-plan.md` §4 applies the improvement
     claim "on the split" to every split. §2 lists Test T and Test S side by side, and so does
     `docs/eval_plan.md` §1. So the owner's proposal applies (owner decision, 2026-11-13).
+  - It is fixed **in this plan only** (tag `test-plan-v1`). The evaluation plan is not amended, and there is
+    no `eval-freeze-v3` (owner decision, 2026-11-13).
   - **Reason.** Embeddings identify the site (AUROC 0.999). evaluation-plan §2 says Test T "inherits this
     shortcut, and Test S cannot". So Test S is the cleaner test of the humpback signal.
   - **Stated with it:** Test S covers the same calendar dates as train/val (evaluation-plan §2, "Known
@@ -292,6 +315,6 @@ seed 20261109). There are **400 test days**. **No day is ever added, swapped or 
 | # | Decision | Status |
 |---|---|---|
 | T1 | Audit log: copy it into the worktree, score, copy it back. One linear chain | **Confirmed 2026-11-13**, amended [A1] |
-| T2 | QA re-run: move the first attempt to `v2_test_first_attempt/`, log `qa_rerun`, re-score that day alone; `qa_exclusion` if the flag remains | **Confirmed 2026-11-13**, amended [A2]. The concentration cut-offs need confirmation |
+| T2 | QA re-run: move the first attempt to `v2_test_first_attempt/`, log `qa_rerun`, re-score that day alone; `qa_exclusion` if the flag remains | **Confirmed 2026-11-13**, amended [A2]. Concentration cut-offs confirmed, report-only |
 | T3 | Stage A and Stage B as separate releases | **Confirmed 2026-11-13** |
-| A8 | Worktree `data/` as a real directory with copied, hash-checked inputs, instead of a symlink (§2.1) | Written in at the owner's instruction (2026-11-13), tested on a train/val day; **for owner review** |
+| A8 | Worktree `data/` as a real directory with copied, hash-checked inputs, instead of a symlink (§2.1) | **Confirmed 2026-11-13** (inputs and disk space stated) |

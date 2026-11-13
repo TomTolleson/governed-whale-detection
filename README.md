@@ -46,6 +46,13 @@ wildlife conservation, research or education, not for profit (`docs/model_notes.
   - It was frozen as `eval-freeze-v2` before any test day was processed. It is therefore a logged pre-test
     amendment (`owner_decision` and `eval_freeze` audit entries), not a deviation. Under the plan (§8), a
     deviation is a change made after test scoring begins.
+- **Headline split.** The evaluation plan (`docs/evaluation-plan.md`, `docs/eval_plan.md`) **names no headline
+  split**: it applies its rules to Test T and Test S alike. The owner chose **Test S as the headline and Test T
+  as secondary** before any test day was processed. That choice is recorded **only in the test-processing plan**
+  (`docs/analysis/test-processing-plan.md` §4 [A3], tag `test-plan-v1`). The evaluation plan was not amended,
+  and there is no `eval-freeze-v3`. All three splits are always reported.
+- **Stage B evaluator.** `src/test_eval.py` is frozen at tag `eval-tool-v1` before any test release. It is the
+  only code that reads test labels.
 - **What every result carries:** per-site AUROC, the site-prior baseline and a site-ID probe, because of the
   site and recorder shortcut.
 - **The audit log:** every step is logged in `audit_log.jsonl`, which is append-only and hash-chained
