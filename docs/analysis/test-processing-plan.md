@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Status | **Written 2026-11-12, before any test audio is processed and before any test label is read.** Restates the frozen rules (evaluation-plan v2 §2, §5, §7, §8; sb01_02 plan §3c; eval_plan §7) and fixes the operating details they leave open |
-| Owner confirmation | **T1, T2 and T3 confirmed 2026-11-13, with amendments A1-A7 (plan text only).** Amended text is marked **[A1]** to **[A7]**. **[A8]** (§2.1, worktree `data/` as a real directory instead of a symlink) was found while making them, tested on a train/val day, and **confirmed by the owner on 2026-11-13** once its inputs and the disk space were stated (§2.1). The concentration cut-offs in [A2] are **confirmed** too. The [A3] headline split stays in this plan; **no `eval-freeze-v3`** (owner decision, 2026-11-13). This version is tagged **`test-plan-v1`** |
+| Owner confirmation | **T1, T2 and T3 confirmed 2026-11-13, with amendments A1-A7 (plan text only).** Amended text is marked **[A1]** to **[A7]**. **[A8]** (§2.1, worktree `data/` as a real directory instead of a symlink) was found while making them, tested on a train/val day, and **confirmed by the owner on 2026-11-13** once its inputs and the disk space were stated (§2.1). The concentration cut-offs in [A2] are **confirmed** too. The [A3] headline split stays in this plan; **no `eval-freeze-v3`** (owner decision, 2026-11-13). This version was tagged **`test-plan-v1`**. **[A9]** (§2.4, thermal watchdog) was added on the owner's instruction of 2026-11-13 and is tagged **`test-plan-v2`** |
 | Frozen commit for test scoring | tag **`eval-freeze-v2`**, commit **`e204ff9`** (`e204ff945e215d25de845494fe0b370187024d61`). `src/pilot.py` there is byte-identical to `eval-freeze-v1` (`47a0b6f`) |
 | Final model | `emb_block_lr_max_C0.001`, fixed in `docs/analysis/final_model/spec.json` (SHA-256 `a2be3bb4…bb8e931`). Artefact `data/models/final_v1.joblib`, SHA-256 `3f7ed71563dff9f50275ce4ef8613c89d393ac446dfb1b2b0eb2e71921f0bf24`, logged in the `final_model` audit entry (2026-11-12) and backed up (`model_backup` entry) |
 | Releases | **Stage A** (audio) and **Stage B** (labels). Each needs its own explicit owner release, quoted verbatim in the log (protocol P7). **Neither has been given** |
@@ -128,6 +128,27 @@ seed 20261109). There are **400 test days**. **No day is ever added, swapped or 
    python -m src.pilot --actor claude-code --split test_T --owner-approval "<Stage A release>"
    python -m src.pilot --actor claude-code --split test_S --owner-approval "<Stage A release>"
    ```
+
+   - **[A9] Thermal watchdog** (owner decision, 2026-11-13). Each command above is launched through
+     `tools/thermal_watchdog.py`, from this repo and run against the worktree:
+     `python -m tools.thermal_watchdog --worktree ../noaa-whale-freeze --state-dir docs/analysis/stage_a/<split>
+     -- <the pilot arguments above>`.
+     - **It sits outside the frozen tree.** Nothing in the worktree changes, so the clean-`src/` gate still
+       passes.
+     - **It does not write to the worktree's audit log** ([A1]). It only reads the log, to see each day's
+       `score_day` entry.
+     - **Its own record:** temperatures every 15 s (CPU Tctl and GPU), pauses, stops and exits go to its own
+       files in `docs/analysis/stage_a/<split>/`. After the log has been copied back, one summary entry is
+       added to the chain (`thermal_watchdog_summary`).
+     - **Pause threshold: 85 °C**, on the CPU or the GPU. A CPU sensor failure on 3 readings in a row also
+       triggers a pause.
+     - **On a pause,** it stops the run cleanly **after the current day**: once the next `score_day` entry is
+       logged, the pilot's process group gets SIGTERM. Days still in progress are scored again on resume
+       (`--skip-existing`, not a QA re-run).
+     - **It never resumes by itself.** It exits (code 3) and waits for the owner. A resume is a new, manual
+       invocation with `--resume`.
+     - **Tested 2026-11-13 on train/val days** (not test days), with the threshold set temporarily to 40 °C.
+       The results are in `docs/analysis/stage_a/watchdog_trial/` and the `thermal_watchdog_trial` entry.
 
    - If a run is interrupted (network, crash), it is resumed with `--skip-existing`. That keeps only days whose
      `.npz` matches its logged SHA-256. A resume is **not** a QA re-run.
@@ -317,4 +338,5 @@ seed 20261109). There are **400 test days**. **No day is ever added, swapped or 
 | T1 | Audit log: copy it into the worktree, score, copy it back. One linear chain | **Confirmed 2026-11-13**, amended [A1] |
 | T2 | QA re-run: move the first attempt to `v2_test_first_attempt/`, log `qa_rerun`, re-score that day alone; `qa_exclusion` if the flag remains | **Confirmed 2026-11-13**, amended [A2]. Concentration cut-offs confirmed, report-only |
 | T3 | Stage A and Stage B as separate releases | **Confirmed 2026-11-13** |
+| A9 | Thermal watchdog outside the frozen tree: 85 °C, stop after the current day, no auto-resume, no audit-log writes during Stage A (§2.4) | **Owner decision 2026-11-13**, tested on train/val days |
 | A8 | Worktree `data/` as a real directory with copied, hash-checked inputs, instead of a symlink (§2.1) | **Confirmed 2026-11-13** (inputs and disk space stated) |
