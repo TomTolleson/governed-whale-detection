@@ -53,6 +53,14 @@ wildlife conservation, research or education, not for profit (`docs/model_notes.
   and there is no `eval-freeze-v3`. All three splits are always reported.
 - **Stage B evaluator.** `src/test_eval.py` is frozen at tag `eval-tool-v1` before any test release. It is the
   only code that reads test labels.
+- **Stage A drift note (reported, not excluding).** The Stage A drift report on Test S
+  (`docs/analysis/drift/drift_test_S.json`, commit `e571e35`) flags one deployment, **`sb03_01`**.
+  - Its embedding distance to the nearest train/val deployment is 30.36. That is **1.008×** the largest
+    nearest-deployment distance within train/val (30.11).
+  - No other test deployment exceeds 0.90× that distance.
+  - Under the plan (evaluation-plan §7; test-processing plan §2.6), drift flags are **reported, not acted on**.
+    `sb03_01` stays in every Stage B result, and nothing is excluded or re-weighted because of the flag.
+  - The same report found no band-level flags and no sb01_02-equivalent deployment, in Test T or Test S.
 - **What every result carries:** per-site AUROC, the site-prior baseline and a site-ID probe, because of the
   site and recorder shortcut.
 - **The audit log:** every step is logged in `audit_log.jsonl`, which is append-only and hash-chained
