@@ -22,6 +22,69 @@ management, permitting or regulatory decisions.
 whale model (Kaggle `google/multispecies-whale`, Apache 2.0), whose Terms of Use ask that it be used for
 wildlife conservation, research or education, not for profit (`docs/model_notes.md`).
 
+## Provenance of this repository
+
+This repository is a **rewritten copy** of a private original repository. The original is the authoritative,
+hash-verified record and has not been changed. The two differ in exactly two ways:
+
+1. **Commit, tag and tagger email.** Every author, committer and tagger email is mapped to the owner's GitHub
+   `users.noreply.github.com` address. Names, dates and messages are unchanged byte for byte, so commit
+   messages still quote the **original** commit hashes. Use the commit map (below) to translate them.
+2. **One audit-log redaction, plus re-chaining.** In `audit_log.jsonl`, line 127 (a `correction` entry)
+   held a personal email address, as the sender of an email to NCEI. In every version of the file, that
+   address is replaced by `[redacted]`. Nothing else on that line, or on any other line, was removed.
+   - The log is hash-chained: each line's `prev_hash` is the SHA-256 of the previous line's text. Changing
+     line 127 changes its hash, so the `prev_hash` of every later line was recomputed. No other field of any
+     line changed.
+   - `src.audit.verify_chain()` passes on every version of the file in this copy. In the private original,
+     the chain verifies with the original line 127.
+
+So every commit from original `a79667a` onward (the commit that added line 127), and every tag, has a
+different hash here than in the original. Trees are identical apart from `audit_log.jsonl`. Commits made
+after the rewrite, starting with the one that added `provenance/`, exist only in this copy.
+
+### Original tags
+
+The tags were meant as independent timestamps. In the private original, they are:
+
+| Tag | Original tag object | Original commit | Tagger date (UTC) |
+|---|---|---|---|
+| `eval-freeze-v1` | `31082b6a4b91993bac66553d3df8b439c467642a` | `47a0b6f994017789505a04fe3b3e0167235cf127` | 2026-11-11 22:12:46 |
+| `eval-freeze-v2` | `5c6a1ee207ce652fff8766092dfe0a975dce7a05` | `e204ff945e215d25de845494fe0b370187024d61` | 2026-11-11 22:55:34 |
+| `eval-tool-v1` | `4832abb276ee320fd44ba45805cde27daf7db6cd` | `356505187d8863670d3e5a417e631643578eb480` | 2026-11-13 02:03:47 |
+| `test-plan-v1` | `445adcda1db4821dacb0bc00a166611b1ee5832f` | `201f249bd81e59ed7fdb4a448905b3f58cdbb569` | 2026-11-13 02:09:15 |
+| `test-plan-v2` | `ca85a99c3a09a765f2dd23fc56706183dfdcefb1` | `d988daaa70987ba599c97ed0588a7d8d5abea4f2` | 2026-11-13 16:38:28 |
+
+The last original commit in this copy is `0fdde3c2653e3b16985fa3a976f25634ca5976d5`.
+
+- **About these dates.** They are **tagger dates**: the time stored inside each tag object by the machine
+  that created it. They are not times recorded by GitHub. The tags here carry the same names, messages and
+  tagger dates, and point to the mapped commits.
+- **Push times.** When each branch and tag actually reached GitHub can be seen in the original repository's
+  **Activity** view on GitHub, which anyone given read access can open.
+
+### Commit map
+
+`provenance/commit-map` (67 commits) and `provenance/ref-map` (branch heads and the five tag objects) map
+each original hash to its hash here. They were written by `git filter-repo` when the copy was made, and
+committed unchanged.
+
+```bash
+# original commit quoted in a message or in the audit log -> this copy
+awk '$1 ~ /^47a0b6f/ {print $2}' provenance/commit-map
+# this copy -> original
+awk '$2 ~ /^209598f/ {print $1}' provenance/commit-map
+# original tag objects -> tag objects here
+grep refs/tags/ provenance/ref-map
+```
+
+See `provenance/README.md` for the file format and what each row guarantees.
+
+### Checking against the original
+
+**Read access to the private original is available on request**, for anyone who wants to check this copy
+against it: the tag hashes above, the unredacted chain, and both maps.
+
 ## Data
 
 - Audio and labels: public GCS bucket `gs://noaa-passive-bioacoustic/sanctsound/`, read anonymously.
