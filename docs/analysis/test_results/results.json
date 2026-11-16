@@ -1,0 +1,2224 @@
+{
+ "git_commit": "a1fb9122143331bf0b59d095745e558e877ae384",
+ "spec_sha256": "a2be3bb4b50d730dd39d241add29c134a51e3cf94c0d61c2c581bb407fb8e931",
+ "artefact_sha256": "3f7ed71563dff9f50275ce4ef8613c89d393ac446dfb1b2b0eb2e71921f0bf24",
+ "selected_model": "emb_block_lr_max_C0.001",
+ "thresholds": {
+  "final_model": 0.9803928236460528,
+  "month_prior": 0.7222222222222222,
+  "ambient_noise": 0.6276253592941594,
+  "zero_shot_primary": 0.5883069038391113,
+  "always_present": 1.0
+ },
+ "headline_split": "test_S",
+ "secondary_split": "test_T",
+ "qa_excluded_days": {},
+ "qa_exclusion_concentration": {
+  "test_S": {
+   "excluded": 0,
+   "by_deployment": {},
+   "sampled_by_deployment": {},
+   "concentrated": []
+  },
+  "test_T": {
+   "excluded": 0,
+   "by_deployment": {},
+   "sampled_by_deployment": {},
+   "concentrated": []
+  }
+ },
+ "sb01_02_equivalent_deployments": [],
+ "splits": {
+  "test_T": {
+   "primary": {
+    "days": 150,
+    "present": 111,
+    "absent": 39,
+    "deployments": 6,
+    "absent_prevalence": 0.26,
+    "methods": {
+     "final_model": {
+      "auroc_ws": 0.87,
+      "auroc_ws_ci95": [
+       0.623,
+       0.929
+      ],
+      "auroc": 0.873,
+      "auroc_ci95": [
+       0.728,
+       0.945
+      ],
+      "pr_auc_absent_pos": 0.613,
+      "bal_acc_fixed_threshold": 0.79,
+      "threshold": 0.9803928236460528,
+      "per_site": {
+       "sb01": {
+        "auroc": 0.825,
+        "present": 54,
+        "absent": 21,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.49,
+         0.931
+        ]
+       },
+       "sb02": {
+        "auroc": 0.92,
+        "present": 57,
+        "absent": 18,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.683,
+         0.938
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.747,
+        "present": 37,
+        "absent": 37,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.552,
+         0.964
+        ]
+       },
+       "SON": "n/a (74 present / 2 absent)"
+      },
+      "per_deployment": {
+       "sb01_10": {
+        "auroc": 0.49,
+        "present": 11,
+        "absent": 18,
+        "deployments": 1
+       },
+       "sb01_11": "n/a (14 present / 2 absent)",
+       "sb01_12": "n/a (29 present / 1 absent)",
+       "sb02_10": {
+        "auroc": 0.784,
+        "present": 12,
+        "absent": 17,
+        "deployments": 1
+       },
+       "sb02_11": "n/a (15 present / 0 absent)",
+       "sb02_12": "n/a (30 present / 1 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb01_10": {
+        "mean_score": 0.869,
+        "present_rate": 0.379,
+        "days": 29
+       },
+       "sb01_11": {
+        "mean_score": 0.96,
+        "present_rate": 0.875,
+        "days": 16
+       },
+       "sb01_12": {
+        "mean_score": 0.987,
+        "present_rate": 0.967,
+        "days": 30
+       },
+       "sb02_10": {
+        "mean_score": 0.898,
+        "present_rate": 0.414,
+        "days": 29
+       },
+       "sb02_11": {
+        "mean_score": 0.995,
+        "present_rate": 1.0,
+        "days": 15
+       },
+       "sb02_12": {
+        "mean_score": 0.987,
+        "present_rate": 0.968,
+        "days": 31
+       }
+      },
+      "site_id_probe_auroc": 0.585
+     },
+     "month_prior": {
+      "auroc_ws": 0.755,
+      "auroc_ws_ci95": [
+       0.534,
+       0.858
+      ],
+      "auroc": 0.753,
+      "auroc_ci95": [
+       0.552,
+       0.839
+      ],
+      "pr_auc_absent_pos": 0.539,
+      "bal_acc_fixed_threshold": 0.581,
+      "threshold": 0.7222222222222222,
+      "per_site": {
+       "sb01": {
+        "auroc": 0.757,
+        "present": 54,
+        "absent": 21,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.487,
+         0.879
+        ]
+       },
+       "sb02": {
+        "auroc": 0.752,
+        "present": 57,
+        "absent": 18,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.308,
+         0.839
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.54,
+        "present": 37,
+        "absent": 37,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.494,
+         0.595
+        ]
+       },
+       "SON": "n/a (74 present / 2 absent)"
+      },
+      "per_deployment": {
+       "sb01_10": {
+        "auroc": 0.487,
+        "present": 11,
+        "absent": 18,
+        "deployments": 1
+       },
+       "sb01_11": "n/a (14 present / 2 absent)",
+       "sb01_12": "n/a (29 present / 1 absent)",
+       "sb02_10": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 17,
+        "deployments": 1
+       },
+       "sb02_11": "n/a (15 present / 0 absent)",
+       "sb02_12": "n/a (30 present / 1 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb01_10": {
+        "mean_score": 0.266,
+        "present_rate": 0.379,
+        "days": 29
+       },
+       "sb01_11": {
+        "mean_score": 0.426,
+        "present_rate": 0.875,
+        "days": 16
+       },
+       "sb01_12": {
+        "mean_score": 0.65,
+        "present_rate": 0.967,
+        "days": 30
+       },
+       "sb02_10": {
+        "mean_score": 0.26,
+        "present_rate": 0.414,
+        "days": 29
+       },
+       "sb02_11": {
+        "mean_score": 0.422,
+        "present_rate": 1.0,
+        "days": 15
+       },
+       "sb02_12": {
+        "mean_score": 0.721,
+        "present_rate": 0.968,
+        "days": 31
+       }
+      },
+      "site_id_probe_auroc": 0.524
+     },
+     "ambient_noise": {
+      "auroc_ws": 0.71,
+      "auroc_ws_ci95": [
+       0.553,
+       0.832
+      ],
+      "auroc": 0.693,
+      "auroc_ci95": [
+       0.52,
+       0.859
+      ],
+      "pr_auc_absent_pos": 0.497,
+      "bal_acc_fixed_threshold": 0.617,
+      "threshold": 0.6276253592941594,
+      "per_site": {
+       "sb01": {
+        "auroc": 0.734,
+        "present": 54,
+        "absent": 21,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.596,
+         0.857
+        ]
+       },
+       "sb02": {
+        "auroc": 0.683,
+        "present": 57,
+        "absent": 18,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.527,
+         0.833
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.599,
+        "present": 37,
+        "absent": 37,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.519,
+         0.929
+        ]
+       },
+       "SON": "n/a (74 present / 2 absent)"
+      },
+      "per_deployment": {
+       "sb01_10": {
+        "auroc": 0.596,
+        "present": 11,
+        "absent": 18,
+        "deployments": 1
+       },
+       "sb01_11": "n/a (14 present / 2 absent)",
+       "sb01_12": "n/a (29 present / 1 absent)",
+       "sb02_10": {
+        "auroc": 0.608,
+        "present": 12,
+        "absent": 17,
+        "deployments": 1
+       },
+       "sb02_11": "n/a (15 present / 0 absent)",
+       "sb02_12": "n/a (30 present / 1 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb01_10": {
+        "mean_score": 0.362,
+        "present_rate": 0.379,
+        "days": 29
+       },
+       "sb01_11": {
+        "mean_score": 0.413,
+        "present_rate": 0.875,
+        "days": 16
+       },
+       "sb01_12": {
+        "mean_score": 0.642,
+        "present_rate": 0.967,
+        "days": 30
+       },
+       "sb02_10": {
+        "mean_score": 0.664,
+        "present_rate": 0.414,
+        "days": 29
+       },
+       "sb02_11": {
+        "mean_score": 0.653,
+        "present_rate": 1.0,
+        "days": 15
+       },
+       "sb02_12": {
+        "mean_score": 0.771,
+        "present_rate": 0.968,
+        "days": 31
+       }
+      },
+      "site_id_probe_auroc": 0.777
+     },
+     "zero_shot_primary": {
+      "auroc_ws": 0.79,
+      "auroc_ws_ci95": [
+       0.746,
+       0.853
+      ],
+      "auroc": 0.786,
+      "auroc_ci95": [
+       0.744,
+       0.833
+      ],
+      "pr_auc_absent_pos": 0.457,
+      "bal_acc_fixed_threshold": 0.604,
+      "threshold": 0.5883069038391113,
+      "per_site": {
+       "sb01": {
+        "auroc": 0.818,
+        "present": 54,
+        "absent": 21,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.799,
+         0.862
+        ]
+       },
+       "sb02": {
+        "auroc": 0.758,
+        "present": 57,
+        "absent": 18,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.7,
+         0.809
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.747,
+        "present": 37,
+        "absent": 37,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.601,
+         0.825
+        ]
+       },
+       "SON": "n/a (74 present / 2 absent)"
+      },
+      "per_deployment": {
+       "sb01_10": {
+        "auroc": 0.833,
+        "present": 11,
+        "absent": 18,
+        "deployments": 1
+       },
+       "sb01_11": "n/a (14 present / 2 absent)",
+       "sb01_12": "n/a (29 present / 1 absent)",
+       "sb02_10": {
+        "auroc": 0.809,
+        "present": 12,
+        "absent": 17,
+        "deployments": 1
+       },
+       "sb02_11": "n/a (15 present / 0 absent)",
+       "sb02_12": "n/a (30 present / 1 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb01_10": {
+        "mean_score": 0.772,
+        "present_rate": 0.379,
+        "days": 29
+       },
+       "sb01_11": {
+        "mean_score": 0.899,
+        "present_rate": 0.875,
+        "days": 16
+       },
+       "sb01_12": {
+        "mean_score": 0.86,
+        "present_rate": 0.967,
+        "days": 30
+       },
+       "sb02_10": {
+        "mean_score": 0.749,
+        "present_rate": 0.414,
+        "days": 29
+       },
+       "sb02_11": {
+        "mean_score": 0.794,
+        "present_rate": 1.0,
+        "days": 15
+       },
+       "sb02_12": {
+        "mean_score": 0.827,
+        "present_rate": 0.968,
+        "days": 31
+       }
+      },
+      "site_id_probe_auroc": 0.57
+     },
+     "site_prior": {
+      "auroc_ws": 0.5,
+      "auroc_ws_ci95": [
+       0.5,
+       0.5
+      ],
+      "auroc": 0.526,
+      "auroc_ci95": [
+       0.266,
+       0.801
+      ],
+      "pr_auc_absent_pos": 0.271,
+      "bal_acc_fixed_threshold": null,
+      "threshold": null,
+      "per_site": {
+       "sb01": {
+        "auroc": 0.5,
+        "present": 54,
+        "absent": 21,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "sb02": {
+        "auroc": 0.5,
+        "present": 57,
+        "absent": 18,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.554,
+        "present": 37,
+        "absent": 37,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.406,
+         0.855
+        ]
+       },
+       "SON": "n/a (74 present / 2 absent)"
+      },
+      "per_deployment": {
+       "sb01_10": {
+        "auroc": 0.5,
+        "present": 11,
+        "absent": 18,
+        "deployments": 1
+       },
+       "sb01_11": "n/a (14 present / 2 absent)",
+       "sb01_12": "n/a (29 present / 1 absent)",
+       "sb02_10": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 17,
+        "deployments": 1
+       },
+       "sb02_11": "n/a (15 present / 0 absent)",
+       "sb02_12": "n/a (30 present / 1 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb01_10": {
+        "mean_score": 0.527,
+        "present_rate": 0.379,
+        "days": 29
+       },
+       "sb01_11": {
+        "mean_score": 0.527,
+        "present_rate": 0.875,
+        "days": 16
+       },
+       "sb01_12": {
+        "mean_score": 0.527,
+        "present_rate": 0.967,
+        "days": 30
+       },
+       "sb02_10": {
+        "mean_score": 0.733,
+        "present_rate": 0.414,
+        "days": 29
+       },
+       "sb02_11": {
+        "mean_score": 0.733,
+        "present_rate": 1.0,
+        "days": 15
+       },
+       "sb02_12": {
+        "mean_score": 0.733,
+        "present_rate": 0.968,
+        "days": 31
+       }
+      },
+      "site_id_probe_auroc": 1.0
+     },
+     "always_present": {
+      "auroc_ws": 0.5,
+      "auroc_ws_ci95": [
+       0.5,
+       0.5
+      ],
+      "auroc": 0.5,
+      "auroc_ci95": [
+       0.5,
+       0.5
+      ],
+      "pr_auc_absent_pos": 0.26,
+      "bal_acc_fixed_threshold": 0.5,
+      "threshold": 1.0,
+      "per_site": {
+       "sb01": {
+        "auroc": 0.5,
+        "present": 54,
+        "absent": 21,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "sb02": {
+        "auroc": 0.5,
+        "present": 57,
+        "absent": 18,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.5,
+        "present": 37,
+        "absent": 37,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "SON": "n/a (74 present / 2 absent)"
+      },
+      "per_deployment": {
+       "sb01_10": {
+        "auroc": 0.5,
+        "present": 11,
+        "absent": 18,
+        "deployments": 1
+       },
+       "sb01_11": "n/a (14 present / 2 absent)",
+       "sb01_12": "n/a (29 present / 1 absent)",
+       "sb02_10": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 17,
+        "deployments": 1
+       },
+       "sb02_11": "n/a (15 present / 0 absent)",
+       "sb02_12": "n/a (30 present / 1 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb01_10": {
+        "mean_score": 1.0,
+        "present_rate": 0.379,
+        "days": 29
+       },
+       "sb01_11": {
+        "mean_score": 1.0,
+        "present_rate": 0.875,
+        "days": 16
+       },
+       "sb01_12": {
+        "mean_score": 1.0,
+        "present_rate": 0.967,
+        "days": 30
+       },
+       "sb02_10": {
+        "mean_score": 1.0,
+        "present_rate": 0.414,
+        "days": 29
+       },
+       "sb02_11": {
+        "mean_score": 1.0,
+        "present_rate": 1.0,
+        "days": 15
+       },
+       "sb02_12": {
+        "mean_score": 1.0,
+        "present_rate": 0.968,
+        "days": 31
+       }
+      },
+      "site_id_probe_auroc": 0.5
+     }
+    },
+    "paired_differences_ws": {
+     "final_model - month_prior": [
+      0.024,
+      0.311
+     ],
+     "final_model - ambient_noise": [
+      -0.0,
+      0.326
+     ],
+     "final_model - zero_shot_primary": [
+      -0.219,
+      0.184
+     ],
+     "final_model - site_prior": [
+      0.123,
+      0.429
+     ]
+    },
+    "paired_differences_pooled": {
+     "final_model - month_prior": [
+      0.035,
+      0.261
+     ],
+     "final_model - ambient_noise": [
+      -0.018,
+      0.401
+     ],
+     "final_model - zero_shot_primary": [
+      -0.081,
+      0.172
+     ],
+     "final_model - site_prior": [
+      0.031,
+      0.675
+     ]
+    },
+    "site_id_from_labels_auroc": 0.52,
+    "improvement_claim": {
+     "best_baseline_by_auroc_ws": "zero_shot_primary",
+     "condition_1_auroc_ws_ci_excludes_0_5": true,
+     "condition_2_paired_ws_ci_vs_best_excludes_0": false,
+     "improves": false
+    }
+   },
+   "zero_flag_days": []
+  },
+  "test_S": {
+   "primary": {
+    "days": 250,
+    "present": 194,
+    "absent": 56,
+    "deployments": 12,
+    "absent_prevalence": 0.224,
+    "methods": {
+     "final_model": {
+      "auroc_ws": 0.883,
+      "auroc_ws_ci95": [
+       0.814,
+       0.936
+      ],
+      "auroc": 0.883,
+      "auroc_ci95": [
+       0.814,
+       0.936
+      ],
+      "pr_auc_absent_pos": 0.686,
+      "bal_acc_fixed_threshold": 0.772,
+      "threshold": 0.9803928236460528,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.883,
+        "present": 194,
+        "absent": 56,
+        "deployments": 12,
+        "auroc_ci95": [
+         0.814,
+         0.936
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": {
+        "auroc": 0.844,
+        "present": 35,
+        "absent": 17,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.739,
+         0.918
+        ]
+       },
+       "MAM": {
+        "auroc": 0.868,
+        "present": 55,
+        "absent": 7,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.84,
+         1.0
+        ]
+       },
+       "JJA": {
+        "auroc": 0.751,
+        "present": 36,
+        "absent": 27,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.598,
+         0.939
+        ]
+       },
+       "SON": {
+        "auroc": 0.979,
+        "present": 68,
+        "absent": 5,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.897,
+         1.0
+        ]
+       }
+      },
+      "per_deployment": {
+       "sb03_01": "n/a (24 present / 1 absent)",
+       "sb03_02": {
+        "auroc": 0.938,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_03": "n/a (19 present / 2 absent)",
+       "sb03_04": {
+        "auroc": 0.875,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_05": {
+        "auroc": 0.98,
+        "present": 17,
+        "absent": 6,
+        "deployments": 1
+       },
+       "sb03_06": "n/a (21 present / 1 absent)",
+       "sb03_07": "n/a (9 present / 1 absent)",
+       "sb03_08": {
+        "auroc": 0.869,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_09": "n/a (23 present / 0 absent)",
+       "sb03_10": {
+        "auroc": 0.542,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_01": {
+        "mean_score": 0.989,
+        "present_rate": 0.96,
+        "days": 25
+       },
+       "sb03_02": {
+        "mean_score": 0.974,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_03": {
+        "mean_score": 0.988,
+        "present_rate": 0.905,
+        "days": 21
+       },
+       "sb03_04": {
+        "mean_score": 0.935,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_05": {
+        "mean_score": 0.986,
+        "present_rate": 0.739,
+        "days": 23
+       },
+       "sb03_06": {
+        "mean_score": 0.973,
+        "present_rate": 0.955,
+        "days": 22
+       },
+       "sb03_07": {
+        "mean_score": 0.992,
+        "present_rate": 0.9,
+        "days": 10
+       },
+       "sb03_08": {
+        "mean_score": 0.986,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_09": {
+        "mean_score": 0.997,
+        "present_rate": 1.0,
+        "days": 23
+       },
+       "sb03_10": {
+        "mean_score": 0.957,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.99,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.991,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "month_prior": {
+      "auroc_ws": 0.829,
+      "auroc_ws_ci95": [
+       0.747,
+       0.892
+      ],
+      "auroc": 0.829,
+      "auroc_ci95": [
+       0.747,
+       0.892
+      ],
+      "pr_auc_absent_pos": 0.593,
+      "bal_acc_fixed_threshold": 0.665,
+      "threshold": 0.7222222222222222,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.829,
+        "present": 194,
+        "absent": 56,
+        "deployments": 12,
+        "auroc_ci95": [
+         0.747,
+         0.892
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": {
+        "auroc": 0.841,
+        "present": 35,
+        "absent": 17,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.545,
+         0.917
+        ]
+       },
+       "MAM": {
+        "auroc": 0.756,
+        "present": 55,
+        "absent": 7,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.5,
+         0.922
+        ]
+       },
+       "JJA": {
+        "auroc": 0.809,
+        "present": 36,
+        "absent": 27,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.574,
+         0.97
+        ]
+       },
+       "SON": {
+        "auroc": 0.635,
+        "present": 68,
+        "absent": 5,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.222,
+         0.779
+        ]
+       }
+      },
+      "per_deployment": {
+       "sb03_01": "n/a (24 present / 1 absent)",
+       "sb03_02": {
+        "auroc": 0.858,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_03": "n/a (19 present / 2 absent)",
+       "sb03_04": {
+        "auroc": 0.958,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_05": {
+        "auroc": 0.912,
+        "present": 17,
+        "absent": 6,
+        "deployments": 1
+       },
+       "sb03_06": "n/a (21 present / 1 absent)",
+       "sb03_07": "n/a (9 present / 1 absent)",
+       "sb03_08": {
+        "auroc": 0.608,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_09": "n/a (23 present / 0 absent)",
+       "sb03_10": {
+        "auroc": 0.65,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_01": {
+        "mean_score": 0.896,
+        "present_rate": 0.96,
+        "days": 25
+       },
+       "sb03_02": {
+        "mean_score": 0.435,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_03": {
+        "mean_score": 0.767,
+        "present_rate": 0.905,
+        "days": 21
+       },
+       "sb03_04": {
+        "mean_score": 0.316,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_05": {
+        "mean_score": 0.442,
+        "present_rate": 0.739,
+        "days": 23
+       },
+       "sb03_06": {
+        "mean_score": 0.87,
+        "present_rate": 0.955,
+        "days": 22
+       },
+       "sb03_07": {
+        "mean_score": 0.937,
+        "present_rate": 0.9,
+        "days": 10
+       },
+       "sb03_08": {
+        "mean_score": 0.417,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_09": {
+        "mean_score": 0.749,
+        "present_rate": 1.0,
+        "days": 23
+       },
+       "sb03_10": {
+        "mean_score": 0.238,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.427,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.646,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "ambient_noise": {
+      "auroc_ws": 0.645,
+      "auroc_ws_ci95": [
+       0.539,
+       0.728
+      ],
+      "auroc": 0.645,
+      "auroc_ci95": [
+       0.539,
+       0.728
+      ],
+      "pr_auc_absent_pos": 0.377,
+      "bal_acc_fixed_threshold": 0.583,
+      "threshold": 0.6276253592941594,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.645,
+        "present": 194,
+        "absent": 56,
+        "deployments": 12,
+        "auroc_ci95": [
+         0.539,
+         0.728
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": {
+        "auroc": 0.59,
+        "present": 35,
+        "absent": 17,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.105,
+         0.748
+        ]
+       },
+       "MAM": {
+        "auroc": 0.634,
+        "present": 55,
+        "absent": 7,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.467,
+         0.929
+        ]
+       },
+       "JJA": {
+        "auroc": 0.54,
+        "present": 36,
+        "absent": 27,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.411,
+         0.768
+        ]
+       },
+       "SON": {
+        "auroc": 0.444,
+        "present": 68,
+        "absent": 5,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.308,
+         0.762
+        ]
+       }
+      },
+      "per_deployment": {
+       "sb03_01": "n/a (24 present / 1 absent)",
+       "sb03_02": {
+        "auroc": 0.608,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_03": "n/a (19 present / 2 absent)",
+       "sb03_04": {
+        "auroc": 0.417,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_05": {
+        "auroc": 0.824,
+        "present": 17,
+        "absent": 6,
+        "deployments": 1
+       },
+       "sb03_06": "n/a (21 present / 1 absent)",
+       "sb03_07": "n/a (9 present / 1 absent)",
+       "sb03_08": {
+        "auroc": 0.638,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_09": "n/a (23 present / 0 absent)",
+       "sb03_10": {
+        "auroc": 0.567,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_01": {
+        "mean_score": 0.701,
+        "present_rate": 0.96,
+        "days": 25
+       },
+       "sb03_02": {
+        "mean_score": 0.421,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_03": {
+        "mean_score": 0.675,
+        "present_rate": 0.905,
+        "days": 21
+       },
+       "sb03_04": {
+        "mean_score": 0.374,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_05": {
+        "mean_score": 0.458,
+        "present_rate": 0.739,
+        "days": 23
+       },
+       "sb03_06": {
+        "mean_score": 0.667,
+        "present_rate": 0.955,
+        "days": 22
+       },
+       "sb03_07": {
+        "mean_score": 0.691,
+        "present_rate": 0.9,
+        "days": 10
+       },
+       "sb03_08": {
+        "mean_score": 0.717,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_09": {
+        "mean_score": 0.655,
+        "present_rate": 1.0,
+        "days": 23
+       },
+       "sb03_10": {
+        "mean_score": 0.386,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.417,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.687,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "zero_shot_primary": {
+      "auroc_ws": 0.79,
+      "auroc_ws_ci95": [
+       0.69,
+       0.898
+      ],
+      "auroc": 0.79,
+      "auroc_ci95": [
+       0.69,
+       0.898
+      ],
+      "pr_auc_absent_pos": 0.541,
+      "bal_acc_fixed_threshold": 0.69,
+      "threshold": 0.5883069038391113,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.79,
+        "present": 194,
+        "absent": 56,
+        "deployments": 12,
+        "auroc_ci95": [
+         0.69,
+         0.898
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": {
+        "auroc": 0.845,
+        "present": 35,
+        "absent": 17,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.764,
+         0.947
+        ]
+       },
+       "MAM": {
+        "auroc": 0.875,
+        "present": 55,
+        "absent": 7,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.571,
+         0.986
+        ]
+       },
+       "JJA": {
+        "auroc": 0.821,
+        "present": 36,
+        "absent": 27,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.766,
+         0.876
+        ]
+       },
+       "SON": {
+        "auroc": 0.897,
+        "present": 68,
+        "absent": 5,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.458,
+         1.0
+        ]
+       }
+      },
+      "per_deployment": {
+       "sb03_01": "n/a (24 present / 1 absent)",
+       "sb03_02": {
+        "auroc": 0.862,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_03": "n/a (19 present / 2 absent)",
+       "sb03_04": {
+        "auroc": 0.767,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_05": {
+        "auroc": 0.578,
+        "present": 17,
+        "absent": 6,
+        "deployments": 1
+       },
+       "sb03_06": "n/a (21 present / 1 absent)",
+       "sb03_07": "n/a (9 present / 1 absent)",
+       "sb03_08": {
+        "auroc": 0.923,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_09": "n/a (23 present / 0 absent)",
+       "sb03_10": {
+        "auroc": 0.908,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_01": {
+        "mean_score": 0.705,
+        "present_rate": 0.96,
+        "days": 25
+       },
+       "sb03_02": {
+        "mean_score": 0.415,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_03": {
+        "mean_score": 0.597,
+        "present_rate": 0.905,
+        "days": 21
+       },
+       "sb03_04": {
+        "mean_score": 0.768,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_05": {
+        "mean_score": 0.563,
+        "present_rate": 0.739,
+        "days": 23
+       },
+       "sb03_06": {
+        "mean_score": 0.725,
+        "present_rate": 0.955,
+        "days": 22
+       },
+       "sb03_07": {
+        "mean_score": 0.333,
+        "present_rate": 0.9,
+        "days": 10
+       },
+       "sb03_08": {
+        "mean_score": 0.522,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_09": {
+        "mean_score": 0.84,
+        "present_rate": 1.0,
+        "days": 23
+       },
+       "sb03_10": {
+        "mean_score": 0.853,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.829,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.808,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "site_prior": {
+      "auroc_ws": 0.5,
+      "auroc_ws_ci95": [
+       0.5,
+       0.5
+      ],
+      "auroc": 0.5,
+      "auroc_ci95": [
+       0.5,
+       0.5
+      ],
+      "pr_auc_absent_pos": 0.224,
+      "bal_acc_fixed_threshold": null,
+      "threshold": null,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.5,
+        "present": 194,
+        "absent": 56,
+        "deployments": 12,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": {
+        "auroc": 0.5,
+        "present": 35,
+        "absent": 17,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "MAM": {
+        "auroc": 0.5,
+        "present": 55,
+        "absent": 7,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "JJA": {
+        "auroc": 0.5,
+        "present": 36,
+        "absent": 27,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "SON": {
+        "auroc": 0.5,
+        "present": 68,
+        "absent": 5,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_deployment": {
+       "sb03_01": "n/a (24 present / 1 absent)",
+       "sb03_02": {
+        "auroc": 0.5,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_03": "n/a (19 present / 2 absent)",
+       "sb03_04": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_05": {
+        "auroc": 0.5,
+        "present": 17,
+        "absent": 6,
+        "deployments": 1
+       },
+       "sb03_06": "n/a (21 present / 1 absent)",
+       "sb03_07": "n/a (9 present / 1 absent)",
+       "sb03_08": {
+        "auroc": 0.5,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_09": "n/a (23 present / 0 absent)",
+       "sb03_10": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_01": {
+        "mean_score": 0.63,
+        "present_rate": 0.96,
+        "days": 25
+       },
+       "sb03_02": {
+        "mean_score": 0.63,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_03": {
+        "mean_score": 0.63,
+        "present_rate": 0.905,
+        "days": 21
+       },
+       "sb03_04": {
+        "mean_score": 0.63,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_05": {
+        "mean_score": 0.63,
+        "present_rate": 0.739,
+        "days": 23
+       },
+       "sb03_06": {
+        "mean_score": 0.63,
+        "present_rate": 0.955,
+        "days": 22
+       },
+       "sb03_07": {
+        "mean_score": 0.63,
+        "present_rate": 0.9,
+        "days": 10
+       },
+       "sb03_08": {
+        "mean_score": 0.63,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_09": {
+        "mean_score": 0.63,
+        "present_rate": 1.0,
+        "days": 23
+       },
+       "sb03_10": {
+        "mean_score": 0.63,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.63,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.63,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "always_present": {
+      "auroc_ws": 0.5,
+      "auroc_ws_ci95": [
+       0.5,
+       0.5
+      ],
+      "auroc": 0.5,
+      "auroc_ci95": [
+       0.5,
+       0.5
+      ],
+      "pr_auc_absent_pos": 0.224,
+      "bal_acc_fixed_threshold": 0.5,
+      "threshold": 1.0,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.5,
+        "present": 194,
+        "absent": 56,
+        "deployments": 12,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": {
+        "auroc": 0.5,
+        "present": 35,
+        "absent": 17,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "MAM": {
+        "auroc": 0.5,
+        "present": 55,
+        "absent": 7,
+        "deployments": 4,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "JJA": {
+        "auroc": 0.5,
+        "present": 36,
+        "absent": 27,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       },
+       "SON": {
+        "auroc": 0.5,
+        "present": 68,
+        "absent": 5,
+        "deployments": 5,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_deployment": {
+       "sb03_01": "n/a (24 present / 1 absent)",
+       "sb03_02": {
+        "auroc": 0.5,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_03": "n/a (19 present / 2 absent)",
+       "sb03_04": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_05": {
+        "auroc": 0.5,
+        "present": 17,
+        "absent": 6,
+        "deployments": 1
+       },
+       "sb03_06": "n/a (21 present / 1 absent)",
+       "sb03_07": "n/a (9 present / 1 absent)",
+       "sb03_08": {
+        "auroc": 0.5,
+        "present": 13,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_09": "n/a (23 present / 0 absent)",
+       "sb03_10": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_01": {
+        "mean_score": 1.0,
+        "present_rate": 0.96,
+        "days": 25
+       },
+       "sb03_02": {
+        "mean_score": 1.0,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_03": {
+        "mean_score": 1.0,
+        "present_rate": 0.905,
+        "days": 21
+       },
+       "sb03_04": {
+        "mean_score": 1.0,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_05": {
+        "mean_score": 1.0,
+        "present_rate": 0.739,
+        "days": 23
+       },
+       "sb03_06": {
+        "mean_score": 1.0,
+        "present_rate": 0.955,
+        "days": 22
+       },
+       "sb03_07": {
+        "mean_score": 1.0,
+        "present_rate": 0.9,
+        "days": 10
+       },
+       "sb03_08": {
+        "mean_score": 1.0,
+        "present_rate": 0.565,
+        "days": 23
+       },
+       "sb03_09": {
+        "mean_score": 1.0,
+        "present_rate": 1.0,
+        "days": 23
+       },
+       "sb03_10": {
+        "mean_score": 1.0,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 1.0,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 1.0,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     }
+    },
+    "paired_differences_ws": {
+     "final_model - month_prior": [
+      -0.013,
+      0.15
+     ],
+     "final_model - ambient_noise": [
+      0.149,
+      0.358
+     ],
+     "final_model - zero_shot_primary": [
+      -0.013,
+      0.2
+     ],
+     "final_model - site_prior": [
+      0.314,
+      0.436
+     ]
+    },
+    "paired_differences_pooled": {
+     "final_model - month_prior": [
+      -0.013,
+      0.15
+     ],
+     "final_model - ambient_noise": [
+      0.149,
+      0.358
+     ],
+     "final_model - zero_shot_primary": [
+      -0.013,
+      0.2
+     ],
+     "final_model - site_prior": [
+      0.314,
+      0.436
+     ]
+    },
+    "improvement_claim": {
+     "best_baseline_by_auroc_ws": "month_prior",
+     "condition_1_auroc_ws_ci_excludes_0_5": true,
+     "condition_2_paired_ws_ci_vs_best_excludes_0": false,
+     "improves": false
+    }
+   },
+   "zero_flag_days": []
+  },
+  "test_S_10_12": {
+   "primary": {
+    "days": 58,
+    "present": 43,
+    "absent": 15,
+    "deployments": 3,
+    "absent_prevalence": 0.259,
+    "methods": {
+     "final_model": {
+      "auroc_ws": 0.778,
+      "auroc_ws_ci95": [
+       0.45,
+       0.968
+      ],
+      "auroc": 0.778,
+      "auroc_ci95": [
+       0.45,
+       0.968
+      ],
+      "pr_auc_absent_pos": 0.546,
+      "bal_acc_fixed_threshold": 0.637,
+      "threshold": 0.9803928236460528,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.778,
+        "present": 43,
+        "absent": 15,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.45,
+         0.968
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.551,
+        "present": 16,
+        "absent": 11,
+        "deployments": 2
+       },
+       "SON": "n/a (27 present / 4 absent)"
+      },
+      "per_deployment": {
+       "sb03_10": {
+        "auroc": 0.542,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_10": {
+        "mean_score": 0.957,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.99,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.991,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "month_prior": {
+      "auroc_ws": 0.753,
+      "auroc_ws_ci95": [
+       0.55,
+       0.792
+      ],
+      "auroc": 0.753,
+      "auroc_ci95": [
+       0.55,
+       0.792
+      ],
+      "pr_auc_absent_pos": 0.473,
+      "bal_acc_fixed_threshold": 0.57,
+      "threshold": 0.7222222222222222,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.753,
+        "present": 43,
+        "absent": 15,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.55,
+         0.792
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.673,
+        "present": 16,
+        "absent": 11,
+        "deployments": 2
+       },
+       "SON": "n/a (27 present / 4 absent)"
+      },
+      "per_deployment": {
+       "sb03_10": {
+        "auroc": 0.65,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_10": {
+        "mean_score": 0.238,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.427,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.646,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "ambient_noise": {
+      "auroc_ws": 0.623,
+      "auroc_ws_ci95": [
+       0.317,
+       0.75
+      ],
+      "auroc": 0.623,
+      "auroc_ci95": [
+       0.317,
+       0.75
+      ],
+      "pr_auc_absent_pos": 0.39,
+      "bal_acc_fixed_threshold": 0.588,
+      "threshold": 0.6276253592941594,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.623,
+        "present": 43,
+        "absent": 15,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.317,
+         0.75
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.608,
+        "present": 16,
+        "absent": 11,
+        "deployments": 2
+       },
+       "SON": "n/a (27 present / 4 absent)"
+      },
+      "per_deployment": {
+       "sb03_10": {
+        "auroc": 0.567,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_10": {
+        "mean_score": 0.386,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.417,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.687,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "zero_shot_primary": {
+      "auroc_ws": 0.854,
+      "auroc_ws_ci95": [
+       0.75,
+       1.0
+      ],
+      "auroc": 0.854,
+      "auroc_ci95": [
+       0.75,
+       1.0
+      ],
+      "pr_auc_absent_pos": 0.7,
+      "bal_acc_fixed_threshold": 0.632,
+      "threshold": 0.5883069038391113,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.854,
+        "present": 43,
+        "absent": 15,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.75,
+         1.0
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.881,
+        "present": 16,
+        "absent": 11,
+        "deployments": 2
+       },
+       "SON": "n/a (27 present / 4 absent)"
+      },
+      "per_deployment": {
+       "sb03_10": {
+        "auroc": 0.908,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_10": {
+        "mean_score": 0.853,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.829,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.808,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "site_prior": {
+      "auroc_ws": 0.5,
+      "auroc_ws_ci95": [
+       0.5,
+       0.5
+      ],
+      "auroc": 0.5,
+      "auroc_ci95": [
+       0.5,
+       0.5
+      ],
+      "pr_auc_absent_pos": 0.259,
+      "bal_acc_fixed_threshold": null,
+      "threshold": null,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.5,
+        "present": 43,
+        "absent": 15,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.5,
+        "present": 16,
+        "absent": 11,
+        "deployments": 2
+       },
+       "SON": "n/a (27 present / 4 absent)"
+      },
+      "per_deployment": {
+       "sb03_10": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_10": {
+        "mean_score": 0.63,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 0.63,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 0.63,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     },
+     "always_present": {
+      "auroc_ws": 0.5,
+      "auroc_ws_ci95": [
+       0.5,
+       0.5
+      ],
+      "auroc": 0.5,
+      "auroc_ci95": [
+       0.5,
+       0.5
+      ],
+      "pr_auc_absent_pos": 0.259,
+      "bal_acc_fixed_threshold": 0.5,
+      "threshold": 1.0,
+      "per_site": {
+       "sb03": {
+        "auroc": 0.5,
+        "present": 43,
+        "absent": 15,
+        "deployments": 3,
+        "auroc_ci95": [
+         0.5,
+         0.5
+        ]
+       }
+      },
+      "per_season": {
+       "DJF": "n/a (0 present / 0 absent)",
+       "MAM": "n/a (0 present / 0 absent)",
+       "JJA": {
+        "auroc": 0.5,
+        "present": 16,
+        "absent": 11,
+        "deployments": 2
+       },
+       "SON": "n/a (27 present / 4 absent)"
+      },
+      "per_deployment": {
+       "sb03_10": {
+        "auroc": 0.5,
+        "present": 12,
+        "absent": 10,
+        "deployments": 1
+       },
+       "sb03_11": "n/a (10 present / 2 absent)",
+       "sb03_12": "n/a (21 present / 3 absent)"
+      },
+      "calibration_per_deployment": {
+       "sb03_10": {
+        "mean_score": 1.0,
+        "present_rate": 0.545,
+        "days": 22
+       },
+       "sb03_11": {
+        "mean_score": 1.0,
+        "present_rate": 0.833,
+        "days": 12
+       },
+       "sb03_12": {
+        "mean_score": 1.0,
+        "present_rate": 0.875,
+        "days": 24
+       }
+      }
+     }
+    },
+    "paired_differences_ws": {
+     "final_model - month_prior": [
+      -0.108,
+      0.23
+     ],
+     "final_model - ambient_noise": [
+      -0.3,
+      0.651
+     ],
+     "final_model - zero_shot_primary": [
+      -0.367,
+      -0.025
+     ],
+     "final_model - site_prior": [
+      -0.05,
+      0.468
+     ]
+    },
+    "paired_differences_pooled": {
+     "final_model - month_prior": [
+      -0.108,
+      0.23
+     ],
+     "final_model - ambient_noise": [
+      -0.3,
+      0.651
+     ],
+     "final_model - zero_shot_primary": [
+      -0.367,
+      -0.025
+     ],
+     "final_model - site_prior": [
+      -0.05,
+      0.468
+     ]
+    },
+    "improvement_claim": {
+     "best_baseline_by_auroc_ws": "zero_shot_primary",
+     "condition_1_auroc_ws_ci_excludes_0_5": false,
+     "condition_2_paired_ws_ci_vs_best_excludes_0": false,
+     "improves": false
+    }
+   },
+   "zero_flag_days": []
+  }
+ }
+}
