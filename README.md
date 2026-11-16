@@ -247,6 +247,50 @@ investigated**. Doing so would be a new analysis, and it is not part of the froz
 - **Same dates.** Test S covers the same calendar dates as train/val. It tests a new site, not a later period.
 - **Labels.** 0 means no confirmed detection, not proof of absence.
 
+## References
+
+Cite the sources below if you use this work. The data citations follow the wording each NOAA source asks for
+(`useLimitation`: "Cite as: …"). See `docs/licensing-and-citation.md` for how they were found.
+
+### Embedding model
+
+- Harvey, M., Allen, A., and Harrell, L. *multispecies-whale* (Google; TensorFlow 2, variation `default`,
+  version 2). Kaggle. https://doi.org/10.34740/kaggle/m/94838
+  - Authors and DOI as shown on the Kaggle model page (read 2026-11-16). The page's citation box was empty, so
+    this format is the project's own. Licence Apache 2.0, with Terms of Use for wildlife conservation,
+    research or education, not for profit (`docs/model_notes.md`).
+
+### SanctSound raw audio
+
+- NOAA Office of National Marine Sanctuaries and U.S Navy. 2020. SanctSound Raw Passive Acoustic Data.
+  NOAA National Centers for Environmental Information. https://doi.org/10.25921/saca-sp25 [access date]
+
+### SanctSound humpback label products (36)
+
+Each product has its own DOI and is cited as:
+
+> NOAA Office of National Marine Sanctuaries and U.S Navy. 2021. Humpback Whale Sound Production Recorded at
+> SanctSound Site SB0X_NN, SanctSound Data Products. NOAA National Centers for Environmental Information.
+> https://doi.org/10.25921/… [access date].
+
+The citation text says 2021; the NCEI page for sb02_01 shows a publication date of 2023-06-15. Citations are
+reproduced as printed, including "U.S Navy". Data were accessed between 2026-11-09 and 2026-11-16.
+
+| Site | DOI | Site | DOI | Site | DOI |
+|---|---|---|---|---|---|
+| `SB01_01` | https://doi.org/10.25921/34s0-d728 | `SB02_01` | https://doi.org/10.25921/3hf1-jk31 | `SB03_01` | https://doi.org/10.25921/54er-1b93 |
+| `SB01_02` | https://doi.org/10.25921/031d-yg11 | `SB02_02` | https://doi.org/10.25921/jzda-0t10 | `SB03_02` | https://doi.org/10.25921/akgp-8228 |
+| `SB01_03` | https://doi.org/10.25921/smbv-jy13 | `SB02_03` | https://doi.org/10.25921/4s42-t075 | `SB03_03` | https://doi.org/10.25921/c6n2-4s25 |
+| `SB01_04` | https://doi.org/10.25921/582k-4c86 | `SB02_04` | https://doi.org/10.25921/m3as-x078 | `SB03_04` | https://doi.org/10.25921/4er4-2e90 |
+| `SB01_05` | https://doi.org/10.25921/j65a-9k58 | `SB02_05` | https://doi.org/10.25921/4401-dd56 | `SB03_05` | https://doi.org/10.25921/hddv-5d43 |
+| `SB01_06` | https://doi.org/10.25921/b44a-gf17 | `SB02_06` | https://doi.org/10.25921/s8yq-mn89 | `SB03_06` | https://doi.org/10.25921/xbbq-xp09 |
+| `SB01_07` | https://doi.org/10.25921/q812-0b80 | `SB02_07` | https://doi.org/10.25921/mgms-1a35 | `SB03_07` | https://doi.org/10.25921/884g-vz82 |
+| `SB01_08` | https://doi.org/10.25921/gj0x-vj92 | `SB02_08` | https://doi.org/10.25921/0sq0-c417 | `SB03_08` | https://doi.org/10.25921/aa7j-gp09 |
+| `SB01_09` | https://doi.org/10.25921/2745-1n07 | `SB02_09` | https://doi.org/10.25921/1dbv-qg42 | `SB03_09` | https://doi.org/10.25921/fkxj-d643 |
+| `SB01_10` | https://doi.org/10.25921/12mx-er78 | `SB02_10` | https://doi.org/10.25921/4bdh-jn58 | `SB03_10` | https://doi.org/10.25921/n9pc-dn32 |
+| `SB01_11` | https://doi.org/10.25921/14pp-9d51 | `SB02_11` | https://doi.org/10.25921/nz8m-4451 | `SB03_11` | https://doi.org/10.25921/q3x6-ga83 |
+| `SB01_12` | https://doi.org/10.25921/9zhe-se70 | `SB02_12` | https://doi.org/10.25921/34pc-z289 | `SB03_12` | https://doi.org/10.25921/26yy-w670 |
+
 ## Layout
 
 ```
