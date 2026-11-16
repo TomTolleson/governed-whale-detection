@@ -45,8 +45,20 @@ and claude-code has not seen the page.
   `saved_model.pb`, `keras_metadata.pb`, `fingerprint.pb` and `variables/` (plus kagglehub's `2.complete`
   marker), and no file named like LICENSE, COPYING or NOTICE. The license terms above therefore rest only on the
   model page.
-- **Evidence snapshot: pending.** The owner will save a PDF of the Kaggle model page in `docs/evidence/`.
-  Its SHA-256 and date go in `audit_log.jsonl` once the file exists. This does not block other work.
+- **Evidence: URL record, not a PDF** (updated 2026-11-16, owner instruction).
+  - **No PDF of the page was ever saved.** None exists in the repository, in any branch, tag or commit, or
+    under `docs/evidence/` (checked 2026-11-16 across all refs). So there is no removed file and no SHA-256 to
+    keep. That is recorded in the `evidence_record` audit entry.
+  - **Page:** the Kaggle model page for Google's multispecies whale model,
+    https://www.kaggle.com/models/google/multispecies-whale (variation TensorFlow 2 `default`, version 2).
+  - **Retrieval:** read by the owner in a browser on **2026-11-09**, in a Claude Desktop session. The details
+    were relayed and recorded here on 2026-11-10. claude-code could not read the page: without JavaScript it
+    returns only its title.
+  - **What it evidences:** the licence (Apache 2.0), the Terms of Use (wildlife conservation, research or
+    education, not for profit), and the model card's training-data citations, which include SanctSound. That
+    is the basis of eval_plan amendment 1, on pretraining overlap. It is the only source for these points:
+    the downloaded model folder contains no licence file.
+  - The page may change. The record is the URL plus this retrieval date, not a frozen copy.
 
 - **License (TensorFlow 2 `default` variation): Apache 2.0.**
 - **Terms of Use (summary, not the page's wording):** users are asked to follow Google's AI principles and to

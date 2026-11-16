@@ -5,6 +5,14 @@ acoustic recordings from Stellwagen Bank National Marine Sanctuary (sites sb01, 
 The plan is a pretrained bioacoustic embedding model plus a small classifier, trained against
 analyst-screened daily humpback labels.
 
+> **Independent project. No NOAA affiliation or endorsement.** *(Draft header, 2026-11-16, for owner review;
+> not yet published.)* This is an independent, non-commercial research project. It uses **public NOAA data**:
+> SanctSound, collected by NOAA's Office of National Marine Sanctuaries and the U.S. Navy and distributed by
+> NOAA NCEI. It is **not affiliated with, sponsored by or endorsed by NOAA, NCEI, the U.S. Navy or Google**,
+> and nothing here represents their views. The data are cited as the source asks: see `CITATION.cff` and
+> `docs/licensing-and-citation.md`. The source states no licence, and the licence for this project's own code
+> is still to be chosen.
+
 **Research use only.** Outputs are experimental and must not be used for operational,
 management, permitting or regulatory decisions.
 
@@ -19,7 +27,8 @@ wildlife conservation, research or education, not for profit (`docs/model_notes.
 - Cite: NOAA Office of National Marine Sanctuaries and U.S. Navy. 2020. SanctSound Raw Passive
   Acoustic Data. NOAA National Centers for Environmental Information.
   https://doi.org/10.25921/saca-sp25
-- Licence terms are not yet confirmed (see `docs/inventory.md`). Raw data is never committed; it
+- Licence terms are not yet confirmed. The source states none, and requires a citation for the raw data and
+  for each of the 36 label products: see `docs/licensing-and-citation.md`. Raw data is never committed; it
   lives in `data/`, which git ignores.
 
 ## Evaluation and governance
