@@ -5,8 +5,11 @@
   Navy SanctSound recordings from Stellwagen Bank (sites sb01, sb02, sb03). It uses a pretrained bioacoustic
   embedding model (Google `multispecies-whale`) plus a small classifier, trained against analyst-screened daily
   humpback labels, under an evaluation plan frozen before any test day was processed.
-- **Headline result.** On Test S (a site not used for training), within-site AUROC is **0.883 [0.814, 0.936]**.
-- **Verdict.** The pre-registered **improvement rule is not met** on any test split: the model does not beat the
+- **Headline result.** On Test S (a site not used to train the classifier), within-site AUROC is
+  **0.883 [0.814, 0.936]**, against **0.829** for the month-prior baseline.
+- **Pretrained model.** The embedding model's own training data includes SanctSound, so this is an audit of a
+  pretrained model, not evidence of generalisation to unseen audio.
+- **Verdict.** The pre-specified **improvement rule is not met** on any test split: the model does not beat the
   best simple baseline (on Test S, the calendar-month prior) with confidence.
 - **Readiness.** **Research prototype. Not for operational use**, and not for management, permitting or
   regulatory decisions.
@@ -22,14 +25,16 @@
 > that does not cover the SanctSound data, the Google model, or the derived features and model artefacts.
 
 **AI assistance.** Built with Claude Code (an AI coding assistant) under the author's direction and review;
-every action is logged in `audit_log.jsonl` with an `actor` field saying who took it.
+pipeline runs, plan changes and author decisions are logged in `audit_log.jsonl`, each with an `actor` field
+saying who took it.
 
 **Research use only.** Outputs are experimental and must not be used for operational,
 management, permitting or regulatory decisions.
 
 **Non-commercial research.** This project is non-commercial research. It uses Google's multispecies
-whale model (Kaggle `google/multispecies-whale`, Apache 2.0), whose Terms of Use ask that it be used for
-wildlife conservation, research or education, not for profit. The clause is quoted in
+whale model (Kaggle `google/multispecies-whale`, Apache 2.0), whose Terms of Use ask that it be used only for
+applications with societal and/or environmental benefit, as well as
+"wildlife conservation for not-for-profit decision-making, education, or research". The clause is quoted in
 [`docs/model_notes.md`](docs/model_notes.md#terms-of-use-as-read-2026-11-16).
 
 **This repository is a rewritten copy** of a private original, with one email address removed; see
@@ -39,9 +44,9 @@ wildlife conservation, research or education, not for profit. The clause is quot
 
 - Audio and labels: public GCS bucket `gs://noaa-passive-bioacoustic/sanctsound/`, read anonymously.
   See `docs/inventory.md`.
-- Cite: NOAA Office of National Marine Sanctuaries and U.S. Navy. 2020. SanctSound Raw Passive
-  Acoustic Data. NOAA National Centers for Environmental Information.
-  https://doi.org/10.25921/saca-sp25
+- Cite (as printed by the source, including "U.S Navy"): NOAA Office of National Marine Sanctuaries and
+  U.S Navy. 2020. SanctSound Raw Passive Acoustic Data. NOAA National Centers for Environmental Information.
+  https://doi.org/10.25921/saca-sp25 [accessed 2026-11-09 to 2026-11-16]. See [References](#references).
 - Licence terms are not yet confirmed. The source states none, and requires a citation for the raw data and
   for each of the 36 label products: see `docs/licensing-and-citation.md`. Raw data is never committed; it
   lives in `data/`, which git ignores.
@@ -102,7 +107,8 @@ wildlife conservation, research or education, not for profit. The clause is quot
   `late_artifact` entry with its SHA-256. Nothing frozen was changed.
 - **What every result carries:** per-site AUROC, the site-prior baseline and a site-ID probe, because of the
   site and recorder shortcut.
-- **The audit log:** every step is logged in `audit_log.jsonl`, which is append-only and hash-chained
+- **The audit log:** pipeline runs, plan changes and author decisions are logged in `audit_log.jsonl`, which
+  is append-only and hash-chained
   (`src/audit.py`, `verify_chain`).
 
 ## Stage B test results (as produced, 2026-11-16)
@@ -289,13 +295,14 @@ Cite the sources below if you use this work. The data citations follow the wordi
 - Harvey, M., Allen, A., and Harrell, L. *multispecies-whale* (Google; TensorFlow 2, variation `default`,
   version 2). Kaggle. https://doi.org/10.34740/kaggle/m/94838
   - Authors and DOI as shown on the Kaggle model page (read 2026-11-16). The page's citation box was empty, so
-    this format is the project's own. Licence Apache 2.0, with Terms of Use for wildlife conservation,
-    research or education, not for profit (`docs/model_notes.md`).
+    this format is the project's own. Licence Apache 2.0. Its Terms of Use ask for applications with societal and/or
+    environmental benefit, as well as "wildlife conservation for not-for-profit decision-making, education, or research"
+    ([`docs/model_notes.md`](docs/model_notes.md#terms-of-use-as-read-2026-11-16)).
 
 ### SanctSound raw audio
 
 - NOAA Office of National Marine Sanctuaries and U.S Navy. 2020. SanctSound Raw Passive Acoustic Data.
-  NOAA National Centers for Environmental Information. https://doi.org/10.25921/saca-sp25 accessed 2026-11-09 to 2026-11-16
+  NOAA National Centers for Environmental Information. https://doi.org/10.25921/saca-sp25 [accessed 2026-11-09 to 2026-11-16]
 
 ### SanctSound humpback label products (36)
 
@@ -303,10 +310,10 @@ Each product has its own DOI and is cited as:
 
 > NOAA Office of National Marine Sanctuaries and U.S Navy. 2021. Humpback Whale Sound Production Recorded at
 > SanctSound Site SB0X_NN, SanctSound Data Products. NOAA National Centers for Environmental Information.
-> https://doi.org/10.25921/… accessed 2026-11-09 to 2026-11-16.
+> https://doi.org/10.25921/… [accessed 2026-11-09 to 2026-11-16].
 
 The citation text says 2021; the NCEI page for sb02_01 shows a publication date of 2023-06-15. Citations are
-reproduced as printed, including "U.S Navy".
+reproduced as printed, including "U.S Navy" (without the second full stop), here and in [Data](#data).
 
 | Site | DOI | Site | DOI | Site | DOI |
 |---|---|---|---|---|---|
@@ -327,7 +334,8 @@ reproduced as printed, including "U.S Navy".
 
 ```
 README.md, LICENSE, NOTICE, CITATION.cff
-audit_log.jsonl      append-only, hash-chained log of every action (src/audit.py)
+requirements-recorded.txt   versions used for every recorded run (requirements.txt is stale)
+audit_log.jsonl      append-only, hash-chained log of pipeline runs, plan changes and decisions (src/audit.py)
 provenance/          commit-map and ref-map from the rewrite (see provenance/README.md)
 src/
   audit.py           audit log: log_event, verify_chain
@@ -346,7 +354,8 @@ src/
   test_eval.py       Stage B test evaluation, frozen at tag eval-tool-v1; the only code that reads test labels
 tools/
   dryrun_test_eval.py   dry run of test_eval.py with fake labels on non-test data
-  thermal_watchdog.py   GPU thermal watchdog used during Stage A scoring
+  thermal_watchdog.py   thermal watchdog used during Stage A scoring: records CPU Tctl (k10temp) and GPU
+                        temperature (nvidia-smi) every 15 s, and pauses the run at 85 °C
 tests/               pytest tests
 docs/                plans (evaluation-plan.md, eval_plan.md), errata/, proposals/, model card, data sheet,
                      licensing and citation, and analysis/ outputs (cv, final_model, drift, stage_a, test_results)
@@ -366,13 +375,13 @@ data/                git-ignored: listings, day tables, embeddings, scores, the 
 
 **Environment used for every recorded run:** Python 3.10.12 with tensorflow 2.17.1, numpy 1.26.4,
 scikit-learn 1.5.2, scipy 1.15.3, pandas 2.3.3, soundfile 0.14.0, soxr 0.5.0.post1, joblib 1.6.0,
-kagglehub 0.3.12 and gcsfs 2026.10.1, on one GPU. **`requirements.txt` is out of date**: it pins numpy
-2.2.6 and omits tensorflow, soxr, joblib and kagglehub. Install the versions above instead.
+kagglehub 0.3.12, gcsfs 2026.10.1 and pytest 9.2.0, on one GPU. These are pinned in
+`requirements-recorded.txt`. **`requirements.txt` is out of date** (it pins numpy 2.2.6 and omits tensorflow,
+soxr, joblib and kagglehub); it is kept unchanged as part of the frozen record.
 
 ```bash
 python3.10 -m venv .venv
-.venv/bin/pip install tensorflow==2.17.1 numpy==1.26.4 scikit-learn==1.5.2 scipy==1.15.3 pandas==2.3.3 \
-  soundfile==0.14.0 soxr==0.5.0.post1 joblib==1.6.0 kagglehub==0.3.12 gcsfs==2026.10.1 pytest
+.venv/bin/pip install -r requirements-recorded.txt
 .venv/bin/python -m pytest -q
 ```
 
@@ -387,5 +396,6 @@ python3.10 -m venv .venv
 
 ## Audit log
 
-Every action is appended to `audit_log.jsonl` through `src.audit.log_event`. Each line stores
+Pipeline runs, plan changes and author decisions are appended to `audit_log.jsonl` through
+`src.audit.log_event`. Each line stores
 the SHA-256 of the line before it, so `src.audit.verify_chain()` will detect any edit or deletion.

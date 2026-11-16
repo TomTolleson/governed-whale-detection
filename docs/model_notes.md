@@ -78,8 +78,8 @@ and claude-code has not seen the page.
 https://www.kaggle.com/models/google/multispecies-whale, read by claude-code in a browser on **2026-11-16**
 (first-hand; this supersedes the relayed summary above for the wording).
 
-- **Operative clause, verbatim:** the developers ask that the model be used for applications with societal or
-  environmental benefit, "wildlife conservation for not-for-profit decision-making, education, or research".
+- **Operative clause, verbatim:** the developers ask that users pursue only applications with societal and/or
+  environmental benefit, as well as "wildlife conservation for not-for-profit decision-making, education, or research".
 - **Rest of the section, summarised (not quoted):** the model comes from Google's AI for Nature and Society
   program; users are asked to follow Google's AI principles, in particular being socially beneficial; the
   official licence remains Apache 2.0; a Google contact address is given for questions about appropriate use

@@ -1,0 +1,12 @@
+# Versions used for every recorded run (Python 3.10.12). requirements.txt is stale and kept unchanged.
+tensorflow==2.17.1
+numpy==1.26.4
+scikit-learn==1.5.2
+scipy==1.15.3
+pandas==2.3.3
+soundfile==0.14.0
+soxr==0.5.0.post1
+joblib==1.6.0
+kagglehub==0.3.12
+gcsfs==2026.10.1
+pytest==9.2.0
