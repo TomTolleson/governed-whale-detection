@@ -63,14 +63,32 @@ and claude-code has not seen the page.
 - **License (TensorFlow 2 `default` variation): Apache 2.0.**
 - **Terms of Use (summary, not the page's wording):** users are asked to follow Google's AI principles and to
   use the model for wildlife conservation, research or education, not for profit. The section states
-  that the official license remains Apache 2.0. *The verbatim text is not yet recorded. It is pending a
-  paste from the owner.*
+  that the official license remains Apache 2.0. The operative clause, as read on 2026-11-16, is quoted in
+  [Terms of Use, as read 2026-11-16](#terms-of-use-as-read-2026-11-16) below.
 - **Training data (model card citations) includes:**
   - SanctSound Raw Passive Acoustic Data, doi 10.25921/saca-sp25. **This is the dataset this
     project evaluates on.**
   - an NEFSC Stellwagen Bank dataset, doi 10.25921/g3vk-v972.
   - Which sites, deployments and dates were used: **not stated**. Any of our train/val or test
     days may therefore be in the model's training data (see the amendment in `docs/eval_plan.md` §6).
+
+## Terms of Use, as read 2026-11-16
+
+**Source:** the "Terms of Use" section of the Kaggle model page,
+https://www.kaggle.com/models/google/multispecies-whale, read by claude-code in a browser on **2026-11-16**
+(first-hand; this supersedes the relayed summary above for the wording).
+
+- **Operative clause, verbatim:** the developers ask that the model be used for applications with societal or
+  environmental benefit, "wildlife conservation for not-for-profit decision-making, education, or research".
+- **Rest of the section, summarised (not quoted):** the model comes from Google's AI for Nature and Society
+  program; users are asked to follow Google's AI principles, in particular being socially beneficial; the
+  official licence remains Apache 2.0; a Google contact address is given for questions about appropriate use
+  (not reproduced here).
+- **Training data, same page and date:** the model card's "Training Data" citations include *SanctSound Raw
+  Passive Acoustic Data* (doi 10.25921/saca-sp25), the dataset this project evaluates on, and the NOAA NEFSC
+  Stellwagen Bank noise-monitoring dataset (doi 10.25921/g3vk-v972). This confirms, first-hand, that
+  SanctSound is in the model's training data. Sites, deployments and dates used are not stated.
+- The page may change. The record is the URL plus this retrieval date, not a frozen copy.
 
 ## Not known (documentation not read directly). Do not treat as settled
 

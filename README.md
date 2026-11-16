@@ -1,89 +1,39 @@
 # NOAA SanctSound humpback detection (Stellwagen Bank)
 
-Day-level **humpback whale presence/absence** detection on NOAA–U.S. Navy SanctSound passive
-acoustic recordings from Stellwagen Bank National Marine Sanctuary (sites sb01, sb02, sb03).
-The plan is a pretrained bioacoustic embedding model plus a small classifier, trained against
-analyst-screened daily humpback labels.
+**Summary.**
+- **What it is.** An independent research audit of day-level **humpback whale presence** detection on NOAA–U.S.
+  Navy SanctSound recordings from Stellwagen Bank (sites sb01, sb02, sb03). It uses a pretrained bioacoustic
+  embedding model (Google `multispecies-whale`) plus a small classifier, trained against analyst-screened daily
+  humpback labels, under an evaluation plan frozen before any test day was processed.
+- **Headline result.** On Test S (a site not used for training), within-site AUROC is **0.883 [0.814, 0.936]**.
+- **Verdict.** The pre-registered **improvement rule is not met** on any test split: the model does not beat the
+  best simple baseline (on Test S, the calendar-month prior) with confidence.
+- **Readiness.** **Research prototype. Not for operational use**, and not for management, permitting or
+  regulatory decisions.
 
-> **Independent project. No NOAA affiliation or endorsement.** *(Draft header, 2026-11-16, for owner review;
-> not yet published.)* This is an independent, non-commercial research project. It uses **public NOAA data**:
-> SanctSound, collected by NOAA's Office of National Marine Sanctuaries and the U.S. Navy and distributed by
-> NOAA NCEI. It is **not affiliated with, sponsored by or endorsed by NOAA, NCEI, the U.S. Navy or Google**,
-> and nothing here represents their views. The data are cited as the source asks: see `CITATION.cff` and
-> `docs/licensing-and-citation.md`. The source data states no licence.
+> **Independent project. No NOAA affiliation or endorsement.** This is an independent, non-commercial research
+> project. It uses **public NOAA data**: SanctSound, collected by NOAA's Office of National Marine Sanctuaries
+> and the U.S. Navy and distributed by NOAA NCEI. It is **not affiliated with, sponsored by or endorsed by NOAA,
+> NCEI, the U.S. Navy or Google**, and nothing here represents their views. The data are cited as the source
+> asks: see [References](#references), `CITATION.cff` and `docs/licensing-and-citation.md`. The source data
+> states no licence.
 >
 > **Licence:** this project's own code and documentation are under **Apache 2.0** (`LICENSE`). Per `NOTICE`,
 > that does not cover the SanctSound data, the Google model, or the derived features and model artefacts.
+
+**AI assistance.** Built with Claude Code (an AI coding assistant) under the author's direction and review;
+every action is logged in `audit_log.jsonl` with an `actor` field saying who took it.
 
 **Research use only.** Outputs are experimental and must not be used for operational,
 management, permitting or regulatory decisions.
 
 **Non-commercial research.** This project is non-commercial research. It uses Google's multispecies
 whale model (Kaggle `google/multispecies-whale`, Apache 2.0), whose Terms of Use ask that it be used for
-wildlife conservation, research or education, not for profit (`docs/model_notes.md`).
+wildlife conservation, research or education, not for profit. The clause is quoted in
+[`docs/model_notes.md`](docs/model_notes.md#terms-of-use-as-read-2026-11-16).
 
-## Provenance of this repository
-
-This repository is a **rewritten copy** of a private original repository. The original is the authoritative,
-hash-verified record and has not been changed. The two differ in exactly two ways:
-
-1. **Commit, tag and tagger email.** Every author, committer and tagger email is mapped to the owner's GitHub
-   `users.noreply.github.com` address. Names, dates and messages are unchanged byte for byte, so commit
-   messages still quote the **original** commit hashes. Use the commit map (below) to translate them.
-2. **One audit-log redaction, plus re-chaining.** In `audit_log.jsonl`, line 127 (a `correction` entry)
-   held a personal email address, as the sender of an email to NCEI. In every version of the file, that
-   address is replaced by `[redacted]`. Nothing else on that line, or on any other line, was removed.
-   - The log is hash-chained: each line's `prev_hash` is the SHA-256 of the previous line's text. Changing
-     line 127 changes its hash, so the `prev_hash` of every later line was recomputed. No other field of any
-     line changed.
-   - `src.audit.verify_chain()` passes on every version of the file in this copy. In the private original,
-     the chain verifies with the original line 127.
-
-So every commit from original `a79667a` onward (the commit that added line 127), and every tag, has a
-different hash here than in the original. Trees are identical apart from `audit_log.jsonl`. Commits made
-after the rewrite, starting with the one that added `provenance/`, exist only in this copy.
-
-### Original tags
-
-The tags were meant as independent timestamps. In the private original, they are:
-
-| Tag | Original tag object | Original commit | Tagger date (UTC) |
-|---|---|---|---|
-| `eval-freeze-v1` | `31082b6a4b91993bac66553d3df8b439c467642a` | `47a0b6f994017789505a04fe3b3e0167235cf127` | 2026-11-11 22:12:46 |
-| `eval-freeze-v2` | `5c6a1ee207ce652fff8766092dfe0a975dce7a05` | `e204ff945e215d25de845494fe0b370187024d61` | 2026-11-11 22:55:34 |
-| `eval-tool-v1` | `4832abb276ee320fd44ba45805cde27daf7db6cd` | `356505187d8863670d3e5a417e631643578eb480` | 2026-11-13 02:03:47 |
-| `test-plan-v1` | `445adcda1db4821dacb0bc00a166611b1ee5832f` | `201f249bd81e59ed7fdb4a448905b3f58cdbb569` | 2026-11-13 02:09:15 |
-| `test-plan-v2` | `ca85a99c3a09a765f2dd23fc56706183dfdcefb1` | `d988daaa70987ba599c97ed0588a7d8d5abea4f2` | 2026-11-13 16:38:28 |
-
-The last original commit in this copy is `0fdde3c2653e3b16985fa3a976f25634ca5976d5`.
-
-- **About these dates.** They are **tagger dates**: the time stored inside each tag object by the machine
-  that created it. They are not times recorded by GitHub. The tags here carry the same names, messages and
-  tagger dates, and point to the mapped commits.
-- **Push times.** When each branch and tag actually reached GitHub can be seen in the original repository's
-  **Activity** view on GitHub, which anyone given read access can open.
-
-### Commit map
-
-`provenance/commit-map` (67 commits) and `provenance/ref-map` (branch heads and the five tag objects) map
-each original hash to its hash here. They were written by `git filter-repo` when the copy was made, and
-committed unchanged.
-
-```bash
-# original commit quoted in a message or in the audit log -> this copy
-awk '$1 ~ /^47a0b6f/ {print $2}' provenance/commit-map
-# this copy -> original
-awk '$2 ~ /^209598f/ {print $1}' provenance/commit-map
-# original tag objects -> tag objects here
-grep refs/tags/ provenance/ref-map
-```
-
-See `provenance/README.md` for the file format and what each row guarantees.
-
-### Checking against the original
-
-**Read access to the private original is available on request**, for anyone who wants to check this copy
-against it: the tag hashes above, the unredacted chain, and both maps.
+**This repository is a rewritten copy** of a private original, with one email address removed; see
+[Provenance](#provenance-of-this-repository).
 
 ## Data
 
@@ -102,7 +52,11 @@ against it: the tag hashes above, the unredacted chain, and both maps.
   - git tag `eval-freeze-v1` (`47a0b6f`);
   - then `eval-freeze-v2` (`e204ff9`).
 
-  Both tags are pushed, so their timestamps can be checked independently.
+  The original repository's tags were pushed to GitHub between 2026-11-11 and 2026-11-13; those push times
+  can be checked in the original's GitHub **Activity** view (read access on request, see
+  [Provenance](#provenance-of-this-repository)). In this copy, GitHub's timestamps date only from this
+  copy's own push. The hashes quoted here and elsewhere in the text are the **original** hashes; translate
+  them with `provenance/commit-map`.
 - **The plan files:**
   - Start at `docs/evaluation-plan.md`.
   - Where it repeats `docs/eval_plan.md`, the wording in `docs/eval_plan.md` governs.
@@ -113,15 +67,15 @@ against it: the tag hashes above, the unredacted chain, and both maps.
   - The embeddings identify the recorder deployment (18-way balanced accuracy 0.947) and the site (AUROC
     0.999), and the two sites' present rates differ. So pooled AUROC can reward site identity instead of
     the humpback signal.
-  - The owner therefore moved the headline to within-site AUROC: the chance that a present day outscores an
+  - The author therefore moved the headline to within-site AUROC: the chance that a present day outscores an
     absent day **from the same site**. Pooled AUROC is still reported every time, as a secondary metric.
-  - The change is **Amendment 3** in `docs/eval_plan.md` §3. The reasoning, owner decisions D1-D5 and the
+  - The change is **Amendment 3** in `docs/eval_plan.md` §3. The reasoning, the author's decisions D1-D5 and the
     disclosure are in `docs/proposals/eval-freeze-v2-draft.md`.
   - It was frozen as `eval-freeze-v2` before any test day was processed. It is therefore a logged pre-test
     amendment (`owner_decision` and `eval_freeze` audit entries), not a deviation. Under the plan (§8), a
     deviation is a change made after test scoring begins.
 - **Headline split.** The evaluation plan (`docs/evaluation-plan.md`, `docs/eval_plan.md`) **names no headline
-  split**: it applies its rules to Test T and Test S alike. The owner chose **Test S as the headline and Test T
+  split**: it applies its rules to Test T and Test S alike. The author chose **Test S as the headline and Test T
   as secondary** before any test day was processed. That choice is recorded **only in the test-processing plan**
   (`docs/analysis/test-processing-plan.md` §4 [A3], tag `test-plan-v1`). The evaluation plan was not amended,
   and there is no `eval-freeze-v3`. All three splits are always reported.
@@ -160,7 +114,7 @@ on Test S (the headline), Test T and the Test S 10-12 slice.
 **How the run was done:**
 - One pass of `src/test_eval.py` at tag `eval-tool-v1`, with the frozen model (`final_v1`, SHA-256
   `3f7ed715…`) and plans (`eval-freeze-v2`, `test-plan-v2`). Exit 0, 184 s, no crash, no re-run.
-- The owner's release is logged verbatim (`stage_b_release`).
+- The author's release is logged verbatim (`stage_b_release`).
 - Outputs: `docs/analysis/test_results/results.json` (`f2e0e32d…`) and `test_day_scores.csv`
   (`0fcbed30…`), commit `5c684fb`, unedited.
 - 400 days, 0 QA exclusions.
@@ -224,6 +178,12 @@ investigated**. Doing so would be a new analysis, and it is not part of the froz
 
 ### Limitations, stated with these results
 
+- **SanctSound is in the embedding model's training data** (eval plan amendment 1). The Kaggle model card for
+  Google `multispecies-whale` (read 2026-11-16) lists *SanctSound Raw Passive Acoustic Data*
+  (doi 10.25921/saca-sp25) among its training-data citations, along with a NOAA NEFSC Stellwagen Bank dataset
+  (doi 10.25921/g3vk-v972). Which sites, deployments and dates were used is not stated, so any train/val or
+  test day here may have been seen in pretraining. These results are an **audit of a pretrained model**, not
+  evidence of generalisation to unseen audio. See `docs/model_notes.md`.
 - **Few independent deployments.** Only 7 of the 18 test deployments have at least 5 absent days. CIs are
   wide (the Test T within-site lower bound is 0.623; the 10-12 slice spans 0.45 to 0.968).
 - **Uncalibrated scores.** Mean daily scores per deployment are 0.87-0.997, against present rates of 0.38-1.0.
@@ -242,10 +202,82 @@ investigated**. Doing so would be a new analysis, and it is not part of the froz
   `eval-freeze-v2`. That was after the train/val CV results were seen and before any test day was processed.
   It is a logged pre-test amendment, not a deviation, but it was a choice made with knowledge of train/val
   results.
-- **Pretraining overlap** (eval plan amendment 1). SanctSound may be in the pretrained model's training data,
-  so these are an audit of a pretrained model, not evidence of generalisation to unseen audio.
-- **Same dates.** Test S covers the same calendar dates as train/val. It tests a new site, not a later period.
+- **Site-level AUROC above the deployments inside it.** On Test T, sb01's within-site AUROC is 0.825, but its
+  only evaluable deployment, sb01_10, scores 0.49. At sb02 the figures are 0.920 and 0.784 (sb02_10). A
+  within-site AUROC well above that of the site's only evaluable deployment is consistent with pooling
+  deployments within a site still rewarding differences between deployments, not only the humpback signal.
+  This is a reading of the numbers already reported; no new analysis was run.
+- **Test S is less independent than "new site" suggests.** Test S covers the same calendar dates as train/val,
+  at a site in the same sanctuary. Humpback presence, and so the daily labels, can be expected to be
+  correlated across sites on the same dates (this was not measured). Test S tests a new recorder location,
+  not a later period or an independent population of days.
 - **Labels.** 0 means no confirmed detection, not proof of absence.
+
+## Provenance of this repository
+
+This repository is a **rewritten copy** of a private original repository. The original is the authoritative,
+hash-verified record and has not been changed. The two differ in exactly two ways:
+
+1. **Commit, tag and tagger email.** Every author, committer and tagger email is mapped to the author's GitHub
+   `users.noreply.github.com` address. Names, dates and messages are unchanged byte for byte, so commit
+   messages still quote the **original** commit hashes. Use the commit map (below) to translate them.
+2. **One audit-log redaction, plus re-chaining.** In `audit_log.jsonl`, line 127 (a `correction` entry)
+   held a personal email address, as the sender of an email to NCEI. In every version of the file, that
+   address is replaced by `[redacted]`. Nothing else on that line, or on any other line, was removed.
+   - The log is hash-chained: each line's `prev_hash` is the SHA-256 of the previous line's text. Changing
+     line 127 changes its hash, so the `prev_hash` of every later line was recomputed. No other field of any
+     line changed.
+   - `src.audit.verify_chain()` passes on every version of the file in this copy. In the private original,
+     the chain verifies with the original line 127.
+
+So every commit from original `a79667a` onward (the commit that added line 127), and every tag, has a
+different hash here than in the original. Trees are identical apart from `audit_log.jsonl`. Commits made
+after the rewrite, starting with the one that added `provenance/`, exist only in this copy.
+
+### Original tags
+
+The tags were meant as independent timestamps. In the private original, they are:
+
+| Tag | Original tag object | Original commit | Tagger date (UTC) |
+|---|---|---|---|
+| `eval-freeze-v1` | `31082b6a4b91993bac66553d3df8b439c467642a` | `47a0b6f994017789505a04fe3b3e0167235cf127` | 2026-11-11 22:12:46 |
+| `eval-freeze-v2` | `5c6a1ee207ce652fff8766092dfe0a975dce7a05` | `e204ff945e215d25de845494fe0b370187024d61` | 2026-11-11 22:55:34 |
+| `eval-tool-v1` | `4832abb276ee320fd44ba45805cde27daf7db6cd` | `356505187d8863670d3e5a417e631643578eb480` | 2026-11-13 02:03:47 |
+| `test-plan-v1` | `445adcda1db4821dacb0bc00a166611b1ee5832f` | `201f249bd81e59ed7fdb4a448905b3f58cdbb569` | 2026-11-13 02:09:15 |
+| `test-plan-v2` | `ca85a99c3a09a765f2dd23fc56706183dfdcefb1` | `d988daaa70987ba599c97ed0588a7d8d5abea4f2` | 2026-11-13 16:38:28 |
+
+The last original commit in this copy is `0fdde3c2653e3b16985fa3a976f25634ca5976d5`.
+
+- **About these dates.** They are **tagger dates**: the time stored inside each tag object by the machine
+  that created it. They are not times recorded by GitHub. The tags here carry the same names, messages and
+  tagger dates, and point to the mapped commits.
+- **Push times.** When each branch and tag actually reached GitHub can be seen in the original repository's
+  **Activity** view on GitHub, which anyone given read access can open.
+
+### Commit map
+
+`provenance/commit-map` (67 commits) and `provenance/ref-map` (branch heads and the five tag objects) map
+each original hash to its hash here. They were written by `git filter-repo` when the copy was made, and
+committed unchanged.
+
+```bash
+# original commit quoted in a message or in the audit log -> this copy
+awk '$1 ~ /^47a0b6f/ {print $2}' provenance/commit-map
+# this copy -> original
+awk '$2 ~ /^209598f/ {print $1}' provenance/commit-map
+# original tag objects -> tag objects here
+grep refs/tags/ provenance/ref-map
+```
+
+See `provenance/README.md` for the file format and what each row guarantees.
+
+### Checking against the original
+
+**Read access to the private original is available on request**, for anyone who wants to check this copy
+against it: the tag hashes above, the unredacted chain, and both maps. To ask, **open an issue on this
+repository** on GitHub, or contact the author through their GitHub profile,
+[github.com/TomTolleson](https://github.com/TomTolleson). Please do not post personal contact details in an
+issue.
 
 ## References
 
@@ -263,7 +295,7 @@ Cite the sources below if you use this work. The data citations follow the wordi
 ### SanctSound raw audio
 
 - NOAA Office of National Marine Sanctuaries and U.S Navy. 2020. SanctSound Raw Passive Acoustic Data.
-  NOAA National Centers for Environmental Information. https://doi.org/10.25921/saca-sp25 [access date]
+  NOAA National Centers for Environmental Information. https://doi.org/10.25921/saca-sp25 accessed 2026-11-09 to 2026-11-16
 
 ### SanctSound humpback label products (36)
 
@@ -271,10 +303,10 @@ Each product has its own DOI and is cited as:
 
 > NOAA Office of National Marine Sanctuaries and U.S Navy. 2021. Humpback Whale Sound Production Recorded at
 > SanctSound Site SB0X_NN, SanctSound Data Products. NOAA National Centers for Environmental Information.
-> https://doi.org/10.25921/… [access date].
+> https://doi.org/10.25921/… accessed 2026-11-09 to 2026-11-16.
 
 The citation text says 2021; the NCEI page for sb02_01 shows a publication date of 2023-06-15. Citations are
-reproduced as printed, including "U.S Navy". Data were accessed between 2026-11-09 and 2026-11-16.
+reproduced as printed, including "U.S Navy".
 
 | Site | DOI | Site | DOI | Site | DOI |
 |---|---|---|---|---|---|
@@ -294,19 +326,64 @@ reproduced as printed, including "U.S Navy". Data were accessed between 2026-11-
 ## Layout
 
 ```
-docs/             inventory and design notes
-src/audit.py      append-only, hash-chained audit log (audit_log.jsonl)
-src/inventory.py  bucket listing -> data/inventory.json
-tests/            pytest tests
+README.md, LICENSE, NOTICE, CITATION.cff
+audit_log.jsonl      append-only, hash-chained log of every action (src/audit.py)
+provenance/          commit-map and ref-map from the rewrite (see provenance/README.md)
+src/
+  audit.py           audit log: log_event, verify_chain
+  inventory.py, header_check.py, flac_header.py, label_survey.py, day_table.py
+                     bucket listing, FLAC header checks, label survey, deployment-day table
+  sample_days.py, split_candidates.py
+                     stratified day samples and train/val vs test splits
+  throughput.py      streaming throughput measurement
+  pilot.py           scores days with the Google model (pipeline v2): streams audio, resamples to 24 kHz,
+                     writes per-block embeddings and scores. Used for train/val and, frozen, for Stage A
+  pilot_review.py, deployment_check.py, posthoc_zs_pairs.py
+                     exploratory and diagnostic checks, train/val only
+  cv_eval.py         leave-deployment-out CV, baselines and first classifiers, train/val only
+  final_model.py     final-model selection and fit (protocol P1-P7), train/val only
+  drift_report.py    pre-evaluation drift report on test audio (reads no labels)
+  test_eval.py       Stage B test evaluation, frozen at tag eval-tool-v1; the only code that reads test labels
+tools/
+  dryrun_test_eval.py   dry run of test_eval.py with fake labels on non-test data
+  thermal_watchdog.py   GPU thermal watchdog used during Stage A scoring
+tests/               pytest tests
+docs/                plans (evaluation-plan.md, eval_plan.md), errata/, proposals/, model card, data sheet,
+                     licensing and citation, and analysis/ outputs (cv, final_model, drift, stage_a, test_results)
+data/                git-ignored: listings, day tables, embeddings, scores, the downloaded model
 ```
 
 ## Setup
 
+**What is and is not here.**
+- The fitted model artefact (`final_v1.joblib`) is **not published**. Its SHA-256 and specification are in
+  `docs/analysis/final_model/spec.json` and `docs/model-card.md`.
+- No audio, embeddings or scores are committed (`data/` is git-ignored). The Google model is downloaded from
+  Kaggle.
+- **Full reproduction is heavy.** The 700 scored days (300 train/val, 400 test) stream about **1.3 TB** of
+  audio from the public bucket (audio is streamed, not stored), and scoring takes many hours on a GPU: Stage A
+  alone scored 400 days in about 7.4 hours on one GPU.
+
+**Environment used for every recorded run:** Python 3.10.12 with tensorflow 2.17.1, numpy 1.26.4,
+scikit-learn 1.5.2, scipy 1.15.3, pandas 2.3.3, soundfile 0.14.0, soxr 0.5.0.post1, joblib 1.6.0,
+kagglehub 0.3.12 and gcsfs 2026.10.1, on one GPU. **`requirements.txt` is out of date**: it pins numpy
+2.2.6 and omits tensorflow, soxr, joblib and kagglehub. Install the versions above instead.
+
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+python3.10 -m venv .venv
+.venv/bin/pip install tensorflow==2.17.1 numpy==1.26.4 scikit-learn==1.5.2 scipy==1.15.3 pandas==2.3.3 \
+  soundfile==0.14.0 soxr==0.5.0.post1 joblib==1.6.0 kagglehub==0.3.12 gcsfs==2026.10.1 pytest
 .venv/bin/python -m pytest -q
 ```
+
+**Running the pipeline** (each script logs to `audit_log.jsonl` and takes `--actor`):
+1. `src.inventory`, `src.label_survey`, `src.day_table`, `src.sample_days`: build the listings, day table and
+   day samples.
+2. `src.pilot --split trainval`: score the train/val days.
+3. `src.cv_eval`, then `src.final_model`: cross-validation and the final model.
+4. `src.pilot --split test_T|test_S` and `src.drift_report --split test_T|test_S`: Stage A test scoring and
+   drift.
+5. `src.test_eval`: Stage B. It requires an explicit `--owner-approval` text, and is meant to be run once.
 
 ## Audit log
 
