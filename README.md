@@ -376,7 +376,7 @@ python3.10 -m venv .venv
 .venv/bin/python -m pytest -q
 ```
 
-**Running the pipeline** (each script logs to `audit_log.jsonl` and takes `--actor`):
+**Running the pipeline** (every script below except `src.inventory` takes `--actor` and logs to `audit_log.jsonl`):
 1. `src.inventory`, `src.label_survey`, `src.day_table`, `src.sample_days`: build the listings, day table and
    day samples.
 2. `src.pilot --split trainval`: score the train/val days.
