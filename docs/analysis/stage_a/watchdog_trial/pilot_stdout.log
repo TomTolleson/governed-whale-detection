@@ -1,0 +1,31 @@
+2026-11-13 16:31:05.572242: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-11-13 16:31:05.735568: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-11-13 16:31:05.778312: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+sb01_01_2018-11-14 17280 24.0 134.6 []
+/usr/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+2026-11-13 16:33:46.610128: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-11-13 16:33:46.629106: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-11-13 16:33:46.634484: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+sb01_01_2018-11-16 17280 24.0 134.8 ['overlaps next file by 2.0s; trimmed']
+sb01_01_2018-11-30 17280 24.0 201.3 []
+{
+ "pipeline_version": "2",
+ "git_commit": "e204ff945e215d25de845494fe0b370187024d61",
+ "split": "trainval",
+ "days": 2,
+ "windows": 34560,
+ "total_s": 201.7,
+ "gpu_s": 113.3,
+ "gpu_windows_per_s": 305.1,
+ "end_to_end_windows_per_s": 171.4,
+ "mean_s_per_day": 100.8,
+ "flagged_days": [
+  "sb01_01_2018-11-16"
+ ],
+ "zero_flag_days": [],
+ "resumed_days": 1,
+ "total_days": 3
+}

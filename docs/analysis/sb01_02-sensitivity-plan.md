@@ -96,6 +96,10 @@ season. A classifier on these features **can learn the recorder or site instead 
      with the model;
    - a **site-ID probe**: a site-ID classifier on the model's own day scores. A model whose day scores
      identify the site well beyond the label-rate difference is using the site.
+   - *Amendment (2026-11-11, eval-freeze-v2, owner decisions D1-D5):* **within-site AUROC** (AUROC_ws,
+     `docs/evaluation-plan.md` §3) is now the headline metric, and is reported next to these diagnostics and
+     the pooled AUROC. Every variant (Primary, S1, per-fold table) reports both. Per fold, AUROC_ws uses the
+     ≥ 5 present / ≥ 5 absent site rule, so many single folds will show it as "n/a".
 
 ### 3b. What counts as a material difference *(claude-code; fixed before running)*
 
@@ -108,6 +112,10 @@ At fold level, a change of **|ΔAUROC| ≥ 0.05** in any single fold counts as m
 results are descriptive, because each fold has only 30-35 days.
 
 Balanced accuracy at the validation threshold: a change of **≥ 0.03** counts as material.
+
+*Amendment (2026-11-11, eval-freeze-v2, decision D3):* the pooled rules above apply to **both** pooled AUROC and
+AUROC_ws. S1 differs materially if **either** metric meets them. The fold-level rule applies to both where
+AUROC_ws is defined for the fold.
 
 **If a difference is material:** both results are reported side by side, and the conclusion states that the
 result depends on deployment sb01_02. The primary variant does **not** change after the results are seen.

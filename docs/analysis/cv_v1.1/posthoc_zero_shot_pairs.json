@@ -1,0 +1,195 @@
+{
+ "label": "post-hoc sensitivity checks, not part of the pre-specified analysis",
+ "reason": "owner plan_clarification 2026-11-11: baseline 4 is zero_shot_primary only; the top-10 and max rules were noticed as slightly stronger after results were in",
+ "git_commit": "069ef7fc7565f2790a38fdf49a87cbbabd957056",
+ "input": "docs/analysis/cv_v1.1/oof_scores.csv",
+ "input_sha256": "07c9706163be9498a73d87db4b6cd4fe538a304d8ae57224f6a9463e8544861f",
+ "reproduction_check": {
+  "primary": {
+   "emb_day_lr - zero_shot_primary": true,
+   "emb_block_lr_max - zero_shot_primary": true,
+   "emb_block_lr_top3 - zero_shot_primary": true,
+   "emb_block_lr_top12 - zero_shot_primary": true,
+   "emb_block_lr_mean - zero_shot_primary": true
+  },
+  "S1_excl_sb01_02": {
+   "emb_day_lr - zero_shot_primary": true,
+   "emb_block_lr_max - zero_shot_primary": true,
+   "emb_block_lr_top3 - zero_shot_primary": true,
+   "emb_block_lr_top12 - zero_shot_primary": true,
+   "emb_block_lr_mean - zero_shot_primary": true
+  }
+ },
+ "primary": {
+  "paired_differences_ws": {
+   "emb_day_lr - zero_shot_top10": [
+    -0.102,
+    0.176
+   ],
+   "emb_day_lr - zero_shot_max": [
+    -0.091,
+    0.197
+   ],
+   "emb_block_lr_max - zero_shot_top10": [
+    -0.002,
+    0.2
+   ],
+   "emb_block_lr_max - zero_shot_max": [
+    0.01,
+    0.221
+   ],
+   "emb_block_lr_top3 - zero_shot_top10": [
+    -0.011,
+    0.209
+   ],
+   "emb_block_lr_top3 - zero_shot_max": [
+    -0.001,
+    0.229
+   ],
+   "emb_block_lr_top12 - zero_shot_top10": [
+    -0.035,
+    0.222
+   ],
+   "emb_block_lr_top12 - zero_shot_max": [
+    -0.025,
+    0.24
+   ],
+   "emb_block_lr_mean - zero_shot_top10": [
+    -0.08,
+    0.225
+   ],
+   "emb_block_lr_mean - zero_shot_max": [
+    -0.067,
+    0.239
+   ]
+  },
+  "paired_differences_pooled": {
+   "emb_day_lr - zero_shot_top10": [
+    -0.071,
+    0.22
+   ],
+   "emb_day_lr - zero_shot_max": [
+    -0.056,
+    0.255
+   ],
+   "emb_block_lr_max - zero_shot_top10": [
+    0.017,
+    0.234
+   ],
+   "emb_block_lr_max - zero_shot_max": [
+    0.03,
+    0.268
+   ],
+   "emb_block_lr_top3 - zero_shot_top10": [
+    0.006,
+    0.238
+   ],
+   "emb_block_lr_top3 - zero_shot_max": [
+    0.02,
+    0.275
+   ],
+   "emb_block_lr_top12 - zero_shot_top10": [
+    -0.019,
+    0.249
+   ],
+   "emb_block_lr_top12 - zero_shot_max": [
+    -0.006,
+    0.281
+   ],
+   "emb_block_lr_mean - zero_shot_top10": [
+    -0.054,
+    0.255
+   ],
+   "emb_block_lr_mean - zero_shot_max": [
+    -0.042,
+    0.282
+   ]
+  }
+ },
+ "S1_excl_sb01_02": {
+  "paired_differences_ws": {
+   "emb_day_lr - zero_shot_top10": [
+    -0.117,
+    0.166
+   ],
+   "emb_day_lr - zero_shot_max": [
+    -0.099,
+    0.198
+   ],
+   "emb_block_lr_max - zero_shot_top10": [
+    -0.01,
+    0.207
+   ],
+   "emb_block_lr_max - zero_shot_max": [
+    0.011,
+    0.234
+   ],
+   "emb_block_lr_top3 - zero_shot_top10": [
+    -0.026,
+    0.202
+   ],
+   "emb_block_lr_top3 - zero_shot_max": [
+    -0.006,
+    0.227
+   ],
+   "emb_block_lr_top12 - zero_shot_top10": [
+    -0.05,
+    0.216
+   ],
+   "emb_block_lr_top12 - zero_shot_max": [
+    -0.031,
+    0.242
+   ],
+   "emb_block_lr_mean - zero_shot_top10": [
+    -0.099,
+    0.224
+   ],
+   "emb_block_lr_mean - zero_shot_max": [
+    -0.079,
+    0.249
+   ]
+  },
+  "paired_differences_pooled": {
+   "emb_day_lr - zero_shot_top10": [
+    -0.077,
+    0.224
+   ],
+   "emb_day_lr - zero_shot_max": [
+    -0.057,
+    0.264
+   ],
+   "emb_block_lr_max - zero_shot_top10": [
+    0.027,
+    0.243
+   ],
+   "emb_block_lr_max - zero_shot_max": [
+    0.05,
+    0.282
+   ],
+   "emb_block_lr_top3 - zero_shot_top10": [
+    0.01,
+    0.237
+   ],
+   "emb_block_lr_top3 - zero_shot_max": [
+    0.029,
+    0.274
+   ],
+   "emb_block_lr_top12 - zero_shot_top10": [
+    -0.01,
+    0.251
+   ],
+   "emb_block_lr_top12 - zero_shot_max": [
+    0.009,
+    0.286
+   ],
+   "emb_block_lr_mean - zero_shot_top10": [
+    -0.053,
+    0.258
+   ],
+   "emb_block_lr_mean - zero_shot_max": [
+    -0.033,
+    0.296
+   ]
+  }
+ }
+}

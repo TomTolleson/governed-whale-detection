@@ -1,0 +1,17 @@
+split,site,method,n,TP,FN,TN,FP,sens,spec,bal_acc
+test_S,sb03,final_model,250,161,33,40,16,0.83,0.714,0.772
+test_S,sb03,month_prior,250,71,123,54,2,0.366,0.964,0.665
+test_S,sb03,ambient_noise,250,98,96,37,19,0.505,0.661,0.583
+test_S,sb03,zero_shot_primary,250,143,51,36,20,0.737,0.643,0.69
+test_S,sb03 dep 10-12,final_model,58,29,14,9,6,0.674,0.6,0.637
+test_S,sb03 dep 10-12,month_prior,58,6,37,15,0,0.14,1.0,0.57
+test_S,sb03 dep 10-12,ambient_noise,58,19,24,11,4,0.442,0.733,0.588
+test_S,sb03 dep 10-12,zero_shot_primary,58,40,3,5,10,0.93,0.333,0.632
+test_T,sb01,final_model,75,31,23,20,1,0.574,0.952,0.763
+test_T,sb01,month_prior,75,7,47,21,0,0.13,1.0,0.565
+test_T,sb01,ambient_noise,75,19,35,19,2,0.352,0.905,0.628
+test_T,sb01,zero_shot_primary,75,50,4,6,15,0.926,0.286,0.606
+test_T,sb02,final_model,75,39,18,17,1,0.684,0.944,0.814
+test_T,sb02,month_prior,75,11,46,18,0,0.193,1.0,0.596
+test_T,sb02,ambient_noise,75,44,13,7,11,0.772,0.389,0.58
+test_T,sb02,zero_shot_primary,75,47,10,7,11,0.825,0.389,0.607

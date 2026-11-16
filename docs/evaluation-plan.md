@@ -2,9 +2,10 @@
 
 | | |
 |---|---|
-| Status | **FROZEN** at git tag **`eval-freeze-v1`**, the commit that adds this file. Its hash is recorded in `audit_log.jsonl` (`eval_freeze` entry) |
+| Status | **FROZEN** at git tag **`eval-freeze-v2`** (supersedes `eval-freeze-v1`, `47a0b6f`). Each tag's hash is recorded in `audit_log.jsonl` (`eval_freeze` entries) |
 | Written | 2026-11-11 by claude-code, at the owner's instruction |
-| Detailed rules | `docs/eval_plan.md` (frozen 2026-11-09, amendments 1-2), `docs/analysis/sb01_02-sensitivity-plan.md`, `docs/errata/` |
+| v2 change | **[v2 2026-11-11]** Headline metric changed from pooled AUROC to within-site AUROC (§3, §4). Owner decisions D1-D5 in `docs/proposals/eval-freeze-v2-draft.md`, approved 2026-11-11 (`owner_decision` entry). Decided after train/val CV v1 results were seen and before any test day was processed |
+| Detailed rules | `docs/eval_plan.md` (frozen 2026-11-09, amendments 1-3), `docs/analysis/sb01_02-sensitivity-plan.md`, `docs/errata/` |
 | Test days | **Not processed.** They are processed only after the owner explicitly says so, through the test gate (§8) |
 
 This document draws together everything that must be fixed before test scoring. Where it repeats
@@ -54,8 +55,16 @@ Day lists: `data/sample_days.csv`, seed 20261109, SHA-256 `3c47e9bc…201947d`.
 
 All metrics are **day-level**: one score and one label per site-day (eval plan §3-§4).
 
-- **Primary: AUROC**, with present as the positive class.
+- **[v2 2026-11-11] Primary (headline): within-site AUROC (AUROC_ws)**, with present as the positive class
+  (eval_plan §3, amendment 3). For sites *s* with *P_s* present days, *N_s* absent days and AUROC *A_s*:
+  AUROC_ws = Σ_s P_s·N_s·A_s / Σ_s P_s·N_s, which is the probability that a present day outscores an absent
+  day **from the same site** (ties ½).
+  - A site is included only if it has ≥ 5 present and ≥ 5 absent days; if none qualifies, the metric is "n/a".
+  - Train/val CV and Test T: sb01 + sb02. Test S and its 10-12 slice: sb03 only, so AUROC_ws equals AUROC.
+  - The 95% CI comes from the deployment-block bootstrap (§6). A resample in which no included site has both
+    classes is drawn again.
 - **Secondary:**
+  - **[v2 2026-11-11] pooled AUROC** over all sites (the v1 primary), always reported next to AUROC_ws;
   - PR-AUC with **absent** as the positive class, reported with the absent prevalence;
   - balanced accuracy at a fixed day threshold.
 - **Day score:** the primary rule is ≥ 3 window detections within a 10-minute span. The continuous score is
@@ -65,11 +74,14 @@ All metrics are **day-level**: one score and one label per site-day (eval plan �
   - the window threshold and the day threshold are chosen on **pooled out-of-fold train/val predictions
     only**, by maximising balanced accuracy;
   - they are written to the audit log with the model commit **before** test scoring, and applied to
-    the tests unchanged.
+    the tests unchanged;
+  - **[v2 2026-11-11]** they stay pooled across sites (decision D4). Per-site thresholds are not used, as
+    they cannot be applied to Test S.
 - **Breakdowns:** by site, by season (DJF/MAM/JJA/SON, UTC month) and by deployment. A cell is reported
   only when both classes have ≥ 5 days; otherwise it shows "n/a (n present / n absent)".
 - **[new 2026-11-11] The final model** is fixed on train/val, with its architecture, hyperparameters,
   features and thresholds. Its commit hash and artefact SHA-256 are logged **before any test label is read**.
+  **[v2 2026-11-11]** Inner-CV selection of the final model uses AUROC_ws as its criterion (decision D5).
 
 ## 4. Baselines and how an improvement is judged
 
@@ -83,11 +95,23 @@ Every baseline is scored on the same days with the same metrics:
    training. This shows what the classifier adds.
 5. **[new 2026-11-11] Site prior** (a diagnostic): the training present rate of the day's site. For Test S,
    which is a new site, it is the overall rate.
+   **[v2 2026-11-11]** It is the headline's reference point: the score that knows only the site. On every
+   test split it is constant within each site, so its AUROC_ws is exactly 0.5. In train/val CV it is the
+   training-fold rate, which differs by held-out fold, so its AUROC_ws can differ from 0.5 (a leave-out
+   artefact). There it is scored like any other method.
 
-**Improvement claim:** the model **improves** on a baseline only if the 95% CI of the **paired** AUROC
-difference excludes 0. The CI comes from a deployment-block bootstrap that resamples the same deployments
-for both scores. The comparison is made against the **best** non-diagnostic baseline (2-4) on each split.
-If the model does not beat the zero-shot model or the ambient-noise baseline, that is reported as the result.
+**[v2 2026-11-11] Improvement claim** (decision D1, option A). The model **improves** only if **both** hold on
+the split:
+1. **A signal beyond site.** On test splits, the 95% CI of its AUROC_ws excludes 0.5. In train/val CV, the
+   paired 95% CI of AUROC_ws(model) − AUROC_ws(site prior) excludes 0.
+2. **It beats the best baseline within site.** The paired 95% CI of AUROC_ws(model) − AUROC_ws(baseline)
+   excludes 0, against the **best** non-diagnostic baseline (2-4) **by AUROC_ws** on that split.
+
+Paired CIs come from a deployment-block bootstrap that resamples the same deployments for both scores.
+The v1 rule (paired pooled-AUROC difference vs the best non-diagnostic baseline) is still computed and
+reported as a secondary result. When the pooled and within-site conclusions differ, both are stated, and
+the within-site one is the headline. If the model does not beat the zero-shot model or the ambient-noise
+baseline, that is reported as the result.
 
 ## 5. QA flags
 
@@ -103,7 +127,8 @@ The flags come from the pipeline, `src/pilot.py` v2. Every flag is listed per sp
 | sb01_02 (train/val) | deployment-level recorder property | Primary results plus sensitivity S1 (excluded) plus a per-fold table, with materiality rules in the sb01_02 plan §3b |
 
 **Shortcut diagnostics, reported with every result:** per-site AUROC, the site-prior baseline, and a site-ID
-probe on the model's day scores (sb01_02 plan §3a.4).
+probe on the model's day scores (sb01_02 plan §3a.4). **[v2 2026-11-11]** AUROC_ws and pooled AUROC are
+shown next to them.
 
 ## 6. Uncertainty
 
@@ -147,6 +172,9 @@ pre-evaluation drift report. None of them use labels.
   - the pipeline code (`src/pilot.py`, pipeline v2);
   - the QA rules (§5);
   - this plan, `docs/eval_plan.md` and `docs/analysis/sb01_02-sensitivity-plan.md`.
+- **[v2 2026-11-11] `eval-freeze-v2`** freezes the same items, with the headline-metric change (§3, §4;
+  eval_plan amendment 3; sb01_02 plan amendment of §3a.4 and §3b). `src/pilot.py` and the QA rules are
+  unchanged from v1. Test scoring runs from a checkout of the **latest** freeze tag.
 - Model development on **train/val** continues after the tag, and the final model is fixed and logged
   before test labels are read (§3).
 - **Once test scoring begins,** the pipeline code, QA rules and evaluation plan are **frozen**. Any change
@@ -172,7 +200,7 @@ pre-evaluation drift report. None of them use labels.
 
 | Item | Value |
 |---|---|
-| Frozen evaluation commit | tag `eval-freeze-v1`; hash in the `eval_freeze` audit entry |
+| Frozen evaluation commit | latest tag `eval-freeze-v2` (v1: `47a0b6f`); hashes in the `eval_freeze` audit entries |
 | Pipeline | `src/pilot.py`, `pipeline_version` "2" |
 | Train/val features | `data/scores/v2/*.npz`, 300 days, commit `d2f4fe5`, per-file SHA-256 in `score_day` entries |
 | Model | Kaggle `google/multispecies-whale` TF2 v2. `saved_model.pb` `85e47539…8778211c`; `variables.data` `ff4063f1…7836051a` (all files: `model_download` entry) |

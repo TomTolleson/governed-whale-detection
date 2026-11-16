@@ -1,0 +1,39 @@
+{
+ "summary": {
+  "pipeline_version": "2",
+  "git_commit": "e204ff945e215d25de845494fe0b370187024d61",
+  "split": "trainval",
+  "days": 1,
+  "windows": 17280,
+  "total_s": 134.0,
+  "gpu_s": 59.1,
+  "gpu_windows_per_s": 292.6,
+  "end_to_end_windows_per_s": 129.0,
+  "mean_s_per_day": 134.0,
+  "flagged_days": [],
+  "zero_flag_days": []
+ },
+ "days": [
+  {
+   "pipeline_version": "2",
+   "git_commit": "e204ff945e215d25de845494fe0b370187024d61",
+   "split": "trainval",
+   "day": "sb01_01_2018-11-14",
+   "windows": 17280,
+   "hours": 24.0,
+   "files": 5,
+   "wall_s": 133.6,
+   "blocks": 288,
+   "stretches": 1,
+   "dropped_tail_s": 0.0,
+   "zero_fraction": 2.8694058641975308e-08,
+   "zero_flag": false,
+   "humpback_median": 0.00043297832598909736,
+   "humpback_max": 0.6888952851295471,
+   "min_peak": 830,
+   "flags": [],
+   "npz": "data/scores/v2/sb01_01_2018-11-14.npz",
+   "sha256": "6f16f15aabad44e21b3499257eca3a168136237f3717d6d073fd5282cb76bf3e"
+  }
+ ]
+}

@@ -4,3 +4,28 @@ __pycache__/
 *.pyc
 .pytest_cache/
 sanctsound_README.pdf
+
+# Credentials and secrets: never commit
+.env
+.env.*
+*.env
+.netrc
+.git-credentials
+kaggle.json
+.kaggle/
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*credentials*.json
+*secret*
+*.token
+.config/gcloud/
+application_default_credentials.json
+
+# Model artefacts and local outputs (kept in data/, logged by SHA-256)
+*.joblib
+*.npz

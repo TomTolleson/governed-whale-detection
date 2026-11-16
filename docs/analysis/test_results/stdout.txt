@@ -1,0 +1,20 @@
+{
+ "test_T": {
+  "best_baseline_by_auroc_ws": "zero_shot_primary",
+  "condition_1_auroc_ws_ci_excludes_0_5": true,
+  "condition_2_paired_ws_ci_vs_best_excludes_0": false,
+  "improves": false
+ },
+ "test_S": {
+  "best_baseline_by_auroc_ws": "month_prior",
+  "condition_1_auroc_ws_ci_excludes_0_5": true,
+  "condition_2_paired_ws_ci_vs_best_excludes_0": false,
+  "improves": false
+ },
+ "test_S_10_12": {
+  "best_baseline_by_auroc_ws": "zero_shot_primary",
+  "condition_1_auroc_ws_ci_excludes_0_5": false,
+  "condition_2_paired_ws_ci_vs_best_excludes_0": false,
+  "improves": false
+ }
+}
