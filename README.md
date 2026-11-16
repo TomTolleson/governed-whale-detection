@@ -61,6 +61,17 @@ wildlife conservation, research or education, not for profit (`docs/model_notes.
   - Under the plan (evaluation-plan §7; test-processing plan §2.6), drift flags are **reported, not acted on**.
     `sb03_01` stays in every Stage B result, and nothing is excluded or re-weighted because of the flag.
   - The same report found no band-level flags and no sb01_02-equivalent deployment, in Test T or Test S.
+- **Late artifacts: an omission, found and fixed on 2026-11-16.** Two documents that should have existed before
+  modeling were missing. They were written on 2026-11-16, after train/val modeling and Stage A and before
+  Stage B, from train/val and Stage A QA outputs only, with no test label read:
+  - `docs/datasheet-esip-ai-ready.md`: a data sheet scored against the ESIP AI-Ready Data Checklist v1.0.
+    Of 49 applicable items, 22 are met, 11 partly met and 16 not met. Access, persistent identifier, licence
+    and standard metadata are the gaps.
+  - `docs/model-card.md`: the model card for `final_v1`, with train/val results only.
+
+  The risk tier mapped to NAO 216-128 (`docs/evaluation-plan.md` §10) and the monitoring and drift plan (§7)
+  already existed. They are unchanged. Each late document is logged in the audit chain as a
+  `late_artifact` entry with its SHA-256. Nothing frozen was changed.
 - **What every result carries:** per-site AUROC, the site-prior baseline and a site-ID probe, because of the
   site and recorder shortcut.
 - **The audit log:** every step is logged in `audit_log.jsonl`, which is append-only and hash-chained
