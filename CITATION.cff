@@ -1,0 +1,38 @@
+# DRAFT for owner review (2026-11-16). Not yet published; repository is private.
+cff-version: 1.2.0
+message: >-
+  If you use this software or its results, please cite it as below, and cite the
+  NOAA SanctSound data it uses (see "references"). This is an independent project.
+  It uses public NOAA data and is not affiliated with or endorsed by NOAA, NCEI,
+  the U.S. Navy or Google.
+title: "Day-level humpback whale presence on SanctSound Stellwagen Bank: a pre-registered audit of a pretrained embedding model"
+type: software
+authors:
+  - family-names: Tolleson
+    given-names: Tom
+date-released: 2026-11-16   # DRAFT: set on actual release
+# license: Apache-2.0       # DRAFT: proposed, not yet chosen (docs/licensing-and-citation.md)
+keywords:
+  - passive acoustic monitoring
+  - humpback whale
+  - Megaptera novaeangliae
+  - SanctSound
+  - Stellwagen Bank
+  - bioacoustics
+references:
+  - type: dataset
+    title: "SanctSound Raw Passive Acoustic Data"
+    authors:
+      - name: "NOAA Office of National Marine Sanctuaries"
+      - name: "U.S. Navy"
+    publisher:
+      name: "NOAA National Centers for Environmental Information"
+    year: 2020
+    doi: 10.25921/saca-sp25
+    notes: "Cite with access date. The 36 humpbackwhale_1d label products used each have their own DOI; see docs/licensing-and-citation.md."
+  - type: software
+    title: "multispecies-whale (TensorFlow 2, version 2)"
+    authors:
+      - name: "Google"
+    url: "https://www.kaggle.com/models/google/multispecies-whale"
+    license: Apache-2.0
