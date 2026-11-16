@@ -89,7 +89,14 @@ education, not for profit.
 | sb03_11 | https://doi.org/10.25921/q3x6-ga83 |
 | sb03_12 | https://doi.org/10.25921/26yy-w670 |
 
-## Proposed licence for the project's own code *(proposal; owner to decide; no LICENSE file added)*
+## Licence for the project's own code
+
+**Decided 2026-11-16 (owner: "If no license is a problem, create a license"): Apache 2.0.** It was added as
+`LICENSE`, the standard text, SHA-256 `cfc7749b…bc523d30`. `NOTICE` limits its scope to the project's own
+code and documentation, and excludes all third-party data, the model, and the derived artefacts. The proposal
+as originally written follows, unchanged.
+
+### Original proposal (2026-11-16)
 
 **Proposal: Apache License 2.0** for the code in `src/`, `tools/` and `tests/`.
 
