@@ -1,0 +1,25 @@
+NOAA SanctSound humpback detection (Stellwagen Bank)
+Copyright 2026 Tom Tolleson
+
+This product's own code (src/, tools/, tests/) and its documentation are
+licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The Apache License covers only this project's own work. It does NOT cover,
+and does not relicense, any third-party material:
+
+- SanctSound audio and humpbackwhale_1d label products (NOAA Office of
+  National Marine Sanctuaries and U.S. Navy; NOAA NCEI;
+  doi 10.25921/saca-sp25 and the 36 product DOIs in
+  docs/licensing-and-citation.md). The source states no licence, requires
+  citation, and disclaims warranty and liability. None of this data is
+  included in the repository.
+- Google "multispecies-whale" model (Kaggle, TensorFlow 2, version 2):
+  Apache 2.0, with Terms of Use asking for use in wildlife conservation,
+  research or education, not for profit. The model is not included in the
+  repository.
+- Derived features, scores and fitted model artefacts (git-ignored data/,
+  and the model-backup branch). No licence is granted for these until the
+  data licence is confirmed.
+
+This is an independent project. It is not affiliated with, sponsored by or
+endorsed by NOAA, NCEI, the U.S. Navy or Google.

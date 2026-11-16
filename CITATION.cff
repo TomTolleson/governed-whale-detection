@@ -11,7 +11,7 @@ authors:
   - family-names: Tolleson
     given-names: Tom
 date-released: 2026-11-16   # DRAFT: set on actual release
-# license: Apache-2.0       # DRAFT: proposed, not yet chosen (docs/licensing-and-citation.md)
+license: Apache-2.0   # own code only; third-party data and model keep their own terms (NOTICE)
 keywords:
   - passive acoustic monitoring
   - humpback whale

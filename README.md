@@ -10,8 +10,10 @@ analyst-screened daily humpback labels.
 > SanctSound, collected by NOAA's Office of National Marine Sanctuaries and the U.S. Navy and distributed by
 > NOAA NCEI. It is **not affiliated with, sponsored by or endorsed by NOAA, NCEI, the U.S. Navy or Google**,
 > and nothing here represents their views. The data are cited as the source asks: see `CITATION.cff` and
-> `docs/licensing-and-citation.md`. The source states no licence, and the licence for this project's own code
-> is still to be chosen.
+> `docs/licensing-and-citation.md`. The source data states no licence.
+>
+> **Licence:** this project's own code and documentation are under **Apache 2.0** (`LICENSE`). Per `NOTICE`,
+> that does not cover the SanctSound data, the Google model, or the derived features and model artefacts.
 
 **Research use only.** Outputs are experimental and must not be used for operational,
 management, permitting or regulatory decisions.
